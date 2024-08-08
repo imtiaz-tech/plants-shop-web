@@ -10,8 +10,8 @@ import {
   addToWishlist,
   deleteFromWishlist,
   deleteAllFromWishlist
-} from "../../redux/actions/wishlistActions";
-import { addToCart } from "../../redux/actions/cartActions";
+} from "../../redux-old/actions/wishlistActions";
+import { addToCart } from "../../redux-old/actions/cartActions";
 import Layout from "../../layout";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 

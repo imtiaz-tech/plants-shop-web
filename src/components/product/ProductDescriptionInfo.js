@@ -3,9 +3,9 @@ import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getProductCartQuantity } from "../../helpers/product";
-import { addToCart } from "../../redux/actions/cartActions";
-import { addToWishlist } from "../../redux/actions/wishlistActions";
-import { addToCompare } from "../../redux/actions/compareActions";
+import { addToCart } from "../../redux-old/actions/cartActions";
+import { addToWishlist } from "../../redux-old/actions/wishlistActions";
+import { addToCompare } from "../../redux-old/actions/compareActions";
 import Rating from "./sub-components/ProductRating";
 
 const ProductDescriptionInfo = ({

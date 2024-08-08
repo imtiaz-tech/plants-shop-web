@@ -1,9 +1,7 @@
-import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
-import { multilanguage } from "redux-multilanguage";
 
-const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
+const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
   return (
     <div
       className={` ${
@@ -15,16 +13,16 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
       <nav>
         <ul>
           <li>
-            <Link to={"/"}>{strings["home"]}</Link>
+            <Link to={"/"}>Home</Link>
           </li>
           <li>
-            <Link to={"/shop"}>{strings["shop"]}</Link>
+            <Link to={"/shop"}>Shop</Link>
           </li>
           <li>
-            <Link to={"/blog"}>{strings["blog"]}</Link>
+            <Link to={"/blog"}>Blog</Link>
           </li>
           <li>
-            <Link to={"/contact"}>{strings["contact_us"]}</Link>
+            <Link to={"/contact"}>Contact Us</Link>
           </li>
         </ul>
       </nav>
@@ -32,10 +30,4 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
   );
 };
 
-NavMenu.propTypes = {
-  menuWhiteClass: PropTypes.string,
-  sidebarMenu: PropTypes.bool,
-  strings: PropTypes.object,
-};
-
-export default multilanguage(NavMenu);
+export default NavMenu;

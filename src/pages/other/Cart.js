@@ -12,7 +12,7 @@ import {
   deleteFromCart,
   cartItemStock,
   deleteAllFromCart
-} from "../../redux/actions/cartActions";
+} from "../../redux-old/actions/cartActions";
 import Layout from "../../layout";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 

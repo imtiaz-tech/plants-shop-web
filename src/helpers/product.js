@@ -33,7 +33,7 @@ export const getDiscountPrice = (price, discount) => {
 
 // get product cart quantity
 export const getProductCartQuantity = (cartItems, product, color, size) => {
-  let productInCart = cartItems.filter(
+  let productInCart = cartItems?.filter(
     single =>
       single.id === product.id &&
       (single.selectedProductColor
@@ -41,9 +41,9 @@ export const getProductCartQuantity = (cartItems, product, color, size) => {
         : true) &&
       (single.selectedProductSize ? single.selectedProductSize === size : true)
   )[0];
-  if (cartItems.length >= 1 && productInCart) {
+  if (cartItems?.length >= 1 && productInCart) {
     if (product.variation) {
-      return cartItems.filter(
+      return cartItems?.filter(
         single =>
           single.id === product.id &&
           single.selectedProductColor === color &&

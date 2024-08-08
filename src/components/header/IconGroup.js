@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import MenuCart from "./sub-components/MenuCart";
-import { deleteFromCart } from "../../redux/actions/cartActions";
+import { deleteFromCart } from "../../redux-old/actions/cartActions";
 
 const IconGroup = ({
   currency,

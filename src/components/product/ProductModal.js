@@ -1,10 +1,8 @@
-import PropTypes from "prop-types";
 import React, { Fragment, useState, useEffect } from "react";
 import Swiper from "react-id-swiper";
 import { getProductCartQuantity } from "../../helpers/product";
 import { Modal } from "react-bootstrap";
 import Rating from "./sub-components/ProductRating";
-import { connect } from "react-redux";
 
 function ProductModal(props) {
   const { product } = props;
@@ -143,14 +141,14 @@ function ProductModal(props) {
                   {discountedprice !== null ? (
                     <Fragment>
                       <span>
-                        {currency.currencySymbol + finaldiscountedprice}
+                        {currency?.currencySymbol + finaldiscountedprice}
                       </span>{" "}
                       <span className="old">
-                        {currency.currencySymbol + finalproductprice}
+                        {currency?.currencySymbol + finalproductprice}
                       </span>
                     </Fragment>
                   ) : (
-                    <span>{currency.currencySymbol + finalproductprice} </span>
+                    <span>{currency?.currencySymbol + finalproductprice} </span>
                   )}
                 </div>
                 {product.rating && product.rating > 0 ? (
@@ -346,27 +344,4 @@ function ProductModal(props) {
   );
 }
 
-ProductModal.propTypes = {
-  addtoast: PropTypes.func,
-  addtocart: PropTypes.func,
-  addtocompare: PropTypes.func,
-  addtowishlist: PropTypes.func,
-  cartitems: PropTypes.array,
-  compareitem: PropTypes.object,
-  currency: PropTypes.object,
-  discountedprice: PropTypes.number,
-  finaldiscountedprice: PropTypes.number,
-  finalproductprice: PropTypes.number,
-  onHide: PropTypes.func,
-  product: PropTypes.object,
-  show: PropTypes.bool,
-  wishlistitem: PropTypes.object
-};
-
-const mapStateToProps = state => {
-  return {
-    cartitems: state.cartData
-  };
-};
-
-export default connect(mapStateToProps)(ProductModal);
+export default ProductModal;

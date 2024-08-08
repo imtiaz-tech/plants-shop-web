@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import MetaTags from "react-meta-tags";
 import { Link } from "react-router-dom";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
@@ -7,8 +7,21 @@ import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import Layout from "../../layout";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+import { useDispatch } from "react-redux";
+import { adduser } from "../../redux/slice";
 
 const LoginRegister = ({ location }) => {
+   const [name , setname] = useState("");
+   const [password , setpassword] = useState("");
+   const [email , setemail] = useState("");
+
+   const dispatch = useDispatch();
+
+
+  const HandleAdd =()=>{
+    const userData = { name,password,email };
+    dispatch(adduser(userData));
+  }
 
   return (
     <Fragment>
@@ -53,11 +66,15 @@ const LoginRegister = ({ location }) => {
                                 type="text"
                                 name="user-name"
                                 placeholder="Username"
+                                value={name}
+                                onChange={(e)=>setname(e.target.value)}
                               />
                               <input
                                 type="password"
                                 name="user-password"
                                 placeholder="Password"
+                                value={password}
+                                onChange={(e)=>setpassword(e.target.value)}
                               />
                               <div className="button-box">
                                 <div className="login-toggle-btn">
@@ -83,19 +100,26 @@ const LoginRegister = ({ location }) => {
                                 type="text"
                                 name="user-name"
                                 placeholder="Username"
+                                value={name}
+                                onChange={(e) => setname(e.target.value)}
+
                               />
                               <input
                                 type="password"
                                 name="user-password"
                                 placeholder="Password"
+                                value={password}
+                                onChange={(e)=>setpassword(e.target.value)}
                               />
                               <input
                                 name="user-email"
                                 placeholder="Email"
                                 type="email"
+                                value={email}
+                                onChange={(e)=>setemail(e.target.value)}
                               />
                               <div className="button-box">
-                                <button type="submit">
+                                <button type="submit" onClick={HandleAdd}>
                                   <span>Register</span>
                                 </button>
                               </div>

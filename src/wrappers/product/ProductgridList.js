@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
-import { addToCart } from "../../redux/actions/cartActions";
-import { addToWishlist } from "../../redux/actions/wishlistActions";
-import { addToCompare } from "../../redux/actions/compareActions";
+import { addToCart } from "../../redux-old/actions/cartActions";
+import { addToWishlist } from "../../redux-old/actions/wishlistActions";
+import { addToCompare } from "../../redux-old/actions/compareActions";
 import ProductGridListSingle from "../../components/product/ProductGridListSingle";
 
 const ProductGrid = ({

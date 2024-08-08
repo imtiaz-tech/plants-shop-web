@@ -1,9 +1,6 @@
-import PropTypes from "prop-types";
-import React, { useEffect, Suspense, lazy } from "react";
+import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastProvider } from "react-toast-notifications";
-import { multilanguage, loadLanguages } from "redux-multilanguage";
-import { connect } from "react-redux";
 import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
 
 // home pages
@@ -30,18 +27,7 @@ const Checkout = lazy(() => import("./pages/other/Checkout"));
 
 const NotFound = lazy(() => import("./pages/other/NotFound"));
 
-const App = (props) => {
-  useEffect(() => {
-    props.dispatch(
-      loadLanguages({
-        languages: {
-          en: require("./translations/english.json"),
-          fn: require("./translations/french.json"),
-          de: require("./translations/germany.json"),
-        },
-      })
-    );
-  });
+const App = () => {
 
   return (
     <ToastProvider placement="bottom-left">
@@ -60,7 +46,7 @@ const App = (props) => {
             <Routes>
               <Route  path="/" element={<Home/>} />
 
-              {/* Shop pages */}
+              Shop pages
               <Route  path="/shop" element={<Shop/>} />
 
               {/* Shop product pages */}
@@ -96,8 +82,4 @@ const App = (props) => {
   );
 };
 
-App.propTypes = {
-  dispatch: PropTypes.func,
-};
-
-export default connect()(multilanguage(App));
+export default App;

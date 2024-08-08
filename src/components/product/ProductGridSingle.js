@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
@@ -16,15 +15,17 @@ const ProductGridSingle = ({
   wishlistItem,
   compareItem,
   sliderClassName,
-  spaceBottomClass
+  spaceBottomClass,
 }) => {
   const [modalShow, setModalShow] = useState(false);
   const { addToast } = useToasts();
 
   const discountedPrice = getDiscountPrice(product.price, product.discount);
-  const finalProductPrice = +(product.price * currency.currencyRate).toFixed(2);
+  const finalProductPrice = +(product.price * currency?.currencyRate).toFixed(
+    2
+  );
   const finalDiscountedPrice = +(
-    discountedPrice * currency.currencyRate
+    discountedPrice * currency?.currencyRate
   ).toFixed(2);
 
   return (
@@ -38,18 +39,10 @@ const ProductGridSingle = ({
           className={`product-wrap ${spaceBottomClass ? spaceBottomClass : ""}`}
         >
           <div className="product-img">
-            <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
-              <img
-                className="default-img"
-                src={process.env.PUBLIC_URL + product.image[0]}
-                alt=""
-              />
+            <Link to={"/product/" + product.id}>
+              <img className="default-img" src={product.image[0]} alt="" />
               {product.image.length > 1 ? (
-                <img
-                  className="hover-img"
-                  src={process.env.PUBLIC_URL + product.image[1]}
-                  alt=""
-                />
+                <img className="hover-img" src={product.image[1]} alt="" />
               ) : (
                 ""
               )}
@@ -130,9 +123,7 @@ const ProductGridSingle = ({
           </div>
           <div className="product-content text-center">
             <h3>
-              <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
-                {product.name}
-              </Link>
+              <Link to={"/product/" + product.id}>{product.name}</Link>
             </h3>
             {product.rating && product.rating > 0 ? (
               <div className="product-rating">
@@ -144,13 +135,13 @@ const ProductGridSingle = ({
             <div className="product-price">
               {discountedPrice !== null ? (
                 <Fragment>
-                  <span>{currency.currencySymbol + finalDiscountedPrice}</span>{" "}
+                  <span>{currency?.currencySymbol + finalDiscountedPrice}</span>{" "}
                   <span className="old">
-                    {currency.currencySymbol + finalProductPrice}
+                    {currency?.currencySymbol + finalProductPrice}
                   </span>
                 </Fragment>
               ) : (
-                <span>{currency.currencySymbol + finalProductPrice} </span>
+                <span>{currency?.currencySymbol + finalProductPrice} </span>
               )}
             </div>
           </div>
@@ -175,19 +166,6 @@ const ProductGridSingle = ({
       />
     </Fragment>
   );
-};
-
-ProductGridSingle.propTypes = {
-  addToCart: PropTypes.func,
-  addToCompare: PropTypes.func,
-  addToWishlist: PropTypes.func,
-  cartItem: PropTypes.object,
-  compareItem: PropTypes.object,
-  currency: PropTypes.object,
-  product: PropTypes.object,
-  sliderClassName: PropTypes.string,
-  spaceBottomClass: PropTypes.string,
-  wishlistItem: PropTypes.object
 };
 
 export default ProductGridSingle;

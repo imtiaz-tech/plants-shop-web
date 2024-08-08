@@ -1,21 +1,17 @@
-import PropTypes from "prop-types";
 import React from "react";
-import { multilanguage, changeLanguage } from "redux-multilanguage";
-import { connect } from "react-redux";
-import { setCurrency } from "../../../redux/actions/currencyActions";
 
 const MobileLangCurrChange = ({
   currency,
   setCurrency,
   currentLanguageCode,
-  dispatch
+  dispatch,
 }) => {
-  const changeLanguageTrigger = e => {
+  const changeLanguageTrigger = (e) => {
     const languageCode = e.target.value;
-    dispatch(changeLanguage(languageCode));
+    // dispatch(changeLanguage(languageCode));
   };
 
-  const setCurrencyTrigger = e => {
+  const setCurrencyTrigger = (e) => {
     const currencyName = e.target.value;
     setCurrency(currencyName);
   };
@@ -33,7 +29,7 @@ const MobileLangCurrChange = ({
         <span className="title mb-2">Choose Language </span>
         <select
           value={currentLanguageCode}
-          onChange={e => {
+          onChange={(e) => {
             changeLanguageTrigger(e);
             closeMobileMenu();
           }}
@@ -46,8 +42,8 @@ const MobileLangCurrChange = ({
       <div className="lang-curr-style">
         <span className="title mb-2">Choose Currency</span>
         <select
-          value={currency.currencyName}
-          onChange={e => {
+          value={currency?.currencyName}
+          onChange={(e) => {
             setCurrencyTrigger(e);
             closeMobileMenu();
           }}
@@ -61,28 +57,4 @@ const MobileLangCurrChange = ({
   );
 };
 
-MobileLangCurrChange.propTypes = {
-  setCurrency: PropTypes.func,
-  currency: PropTypes.object,
-  currentLanguageCode: PropTypes.string,
-  dispatch: PropTypes.func
-};
-
-const mapStateToProps = state => {
-  return {
-    currency: state.currencyData
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    setCurrency: currencyName => {
-      dispatch(setCurrency(currencyName));
-    }
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(multilanguage(MobileLangCurrChange));
+export default MobileLangCurrChange;
