@@ -27,7 +27,6 @@ const Cart = ({
 }) => {
   const [quantityCount] = useState(1);
   const { addToast } = useToasts();
-  const { pathname } = location;
   let cartTotalPrice = 0;
 
   return (
@@ -40,8 +39,8 @@ const Cart = ({
         />
       </MetaTags>
 
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
+      <BreadcrumbsItem to={'/'}>Home</BreadcrumbsItem>
+      <BreadcrumbsItem to={"/"}>
         Cart
       </BreadcrumbsItem>
 

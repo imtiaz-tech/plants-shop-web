@@ -12,7 +12,6 @@ import TeamMemberOne from "../../wrappers/team-member/TeamMemberOne";
 import BrandLogoSliderOne from "../../wrappers/brand-logo/BrandLogoSliderOne";
 
 const About = ({ location }) => {
-  const { pathname } = location;
 
   return (
     <Fragment>
@@ -23,8 +22,8 @@ const About = ({ location }) => {
           content="About page of flone react minimalist eCommerce template."
         />
       </MetaTags>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
+      <BreadcrumbsItem to={'/'}>Home</BreadcrumbsItem>
+      <BreadcrumbsItem to={"/"}>
         About us
       </BreadcrumbsItem>
       <Layout headerTop="visible">

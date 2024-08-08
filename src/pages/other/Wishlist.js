@@ -25,7 +25,6 @@ const Wishlist = ({
   deleteAllFromWishlist
 }) => {
   const { addToast } = useToasts();
-  const { pathname } = location;
 
   return (
     <Fragment>
@@ -37,8 +36,8 @@ const Wishlist = ({
         />
       </MetaTags>
 
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
+      <BreadcrumbsItem to={'/'}>Home</BreadcrumbsItem>
+      <BreadcrumbsItem to={"/"}>
         Wishlist
       </BreadcrumbsItem>
 

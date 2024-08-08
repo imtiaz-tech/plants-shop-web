@@ -11,7 +11,7 @@ import ShopSidebar from '../../wrappers/product/ShopSidebar';
 import ShopTopbar from '../../wrappers/product/ShopTopbar';
 import ShopProducts from '../../wrappers/product/ShopProducts';
 
-const ShopGridStandard = ({location, products}) => {
+const ShopGridStandard = ({products}) => {
     const [layout, setLayout] = useState('grid three-column');
     const [sortType, setSortType] = useState('');
     const [sortValue, setSortValue] = useState('');
@@ -23,7 +23,6 @@ const ShopGridStandard = ({location, products}) => {
     const [sortedProducts, setSortedProducts] = useState([]);
 
     const pageLimit = 15;
-    const {pathname} = location;
 
     const getLayout = (layout) => {
         setLayout(layout)
@@ -54,8 +53,8 @@ const ShopGridStandard = ({location, products}) => {
                 <meta name="description" content="Shop page of flone react minimalist eCommerce template." />
             </MetaTags>
 
-            <BreadcrumbsItem to={process.env.PUBLIC_URL + '/'}>Home</BreadcrumbsItem>
-            <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>Shop</BreadcrumbsItem>
+            <BreadcrumbsItem to={'/'}>Home</BreadcrumbsItem>
+            <BreadcrumbsItem to={"/"} >Shop</BreadcrumbsItem>
 
             <Layout headerTop="visible">
                 {/* breadcrumb */}

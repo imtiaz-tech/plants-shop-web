@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import React, { useEffect, Suspense, lazy } from "react";
-import ScrollToTop from "./helpers/scroll-top";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastProvider } from "react-toast-notifications";
 import { multilanguage, loadLanguages } from "redux-multilanguage";
 import { connect } from "react-redux";
@@ -48,55 +47,49 @@ const App = (props) => {
     <ToastProvider placement="bottom-left">
       <BreadcrumbsProvider>
         <Router>
-          <ScrollToTop>
-            <Suspense
-              fallback={
-                <div className="flone-preloader-wrapper">
-                  <div className="flone-preloader">
-                    <span></span>
-                    <span></span>
-                  </div>
+          <Suspense
+            fallback={
+              <div className="flone-preloader-wrapper">
+                <div className="flone-preloader">
+                  <span></span>
+                  <span></span>
                 </div>
-              }
-            >
-              <Switch>
-                <Route exact path="/" component={Home} />
+              </div>
+            }
+          >
+            <Routes>
+              <Route  path="/" element={<Home/>} />
 
-                {/* Shop pages */}
-                <Route exact path="/shop" component={Shop} />
+              {/* Shop pages */}
+              <Route  path="/shop" element={<Shop/>} />
 
-                {/* Shop product pages */}
-                <Route
-                  path={"/product/:id"}
-                  render={(routeProps) => (
-                    <Product {...routeProps} key={routeProps.match.params.id} />
-                  )}
-                />
+              {/* Shop product pages */}
+              <Route
+                path="/product/:id"
+                render={(routeProps) => (
+                  <Product {...routeProps} key={routeProps.match.params.id} />
+                )}
+              />
 
-                {/* Blog pages */}
-                <Route exact path={"/blog"} component={Blog} />
+              {/* Blog pages */}
+              <Route  path="/blog" element={<Blog/>} />
 
-                {/* Other pages */}
-                <Route exact path={"/about"} component={About} />
-                <Route exact path={"/contact"} component={Contact} />
-                <Route exact path={"/my-account"} component={MyAccount} />
-                <Route
-                  exact
-                  path={"/login-register"}
-                  component={LoginRegister}
-                />
+              {/* Other pages */}
+              <Route  path="/about" element={<About/>} />
+              <Route  path="/contact" element={<Contact/>} />
+              <Route  path="/my-account" element={<MyAccount/>} />
+              <Route  path="/login-register" element={<LoginRegister/>} />
 
-                <Route exact path={"/cart"} component={Cart} />
-                <Route exact path={"/wishlist"} component={Wishlist} />
-                <Route exact path={"/compare"} component={Compare} />
-                <Route exact path={"/checkout"} component={Checkout} />
+              <Route  path="/cart" element={<Cart/>} />
+              <Route  path="/wishlist" element={<Wishlist/>} />
+              <Route  path="/compare" element={<Compare/>} />
+              <Route  path="/checkout" element={<Checkout/>} />
 
-                <Route path={"/not-found"} component={NotFound} />
+              <Route path="/not-found" element={<NotFound/>} />
 
-                <Route exact component={NotFound} />
-              </Switch>
-            </Suspense>
-          </ScrollToTop>
+              <Route exact component={NotFound} />
+            </Routes>
+          </Suspense>
         </Router>
       </BreadcrumbsProvider>
     </ToastProvider>

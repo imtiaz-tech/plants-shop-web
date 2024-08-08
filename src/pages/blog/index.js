@@ -8,8 +8,7 @@ import BlogSidebar from "../../wrappers/blog/BlogSidebar";
 import BlogPagination from "../../wrappers/blog/BlogPagination";
 import BlogPosts from "../../wrappers/blog/BlogPosts";
 
-const BlogStandard = ({ location }) => {
-  const { pathname } = location;
+const BlogStandard = () => {
 
   return (
     <Fragment>
@@ -20,8 +19,8 @@ const BlogStandard = ({ location }) => {
           content="Blog of flone react minimalist eCommerce template."
         />
       </MetaTags>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
+      <BreadcrumbsItem to={"/"}>Home</BreadcrumbsItem>
+      <BreadcrumbsItem to={"/"}>
         Blog
       </BreadcrumbsItem>
       <Layout headerTop="visible">

@@ -9,7 +9,6 @@ import Layout from "../../layout";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 
 const Checkout = ({ location, cartItems, currency }) => {
-  const { pathname } = location;
   let cartTotalPrice = 0;
 
   return (
@@ -21,8 +20,8 @@ const Checkout = ({ location, cartItems, currency }) => {
           content="Checkout page of flone react minimalist eCommerce template."
         />
       </MetaTags>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
+      <BreadcrumbsItem to={'/'}>Home</BreadcrumbsItem>
+      <BreadcrumbsItem to={"/"}>
         Checkout
       </BreadcrumbsItem>
       <Layout headerTop="visible">

@@ -8,7 +8,6 @@ import Layout from "../../layout";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 
 const MyAccount = ({ location }) => {
-  const { pathname } = location;
 
   return (
     <Fragment>
@@ -19,8 +18,8 @@ const MyAccount = ({ location }) => {
           content="Compare page of flone react minimalist eCommerce template."
         />
       </MetaTags>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
+      <BreadcrumbsItem to={'/'}>Home</BreadcrumbsItem>
+      <BreadcrumbsItem to={"/"}>
         My Account
       </BreadcrumbsItem>
       <Layout headerTop="visible">

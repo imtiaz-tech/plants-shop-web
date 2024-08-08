@@ -7,7 +7,6 @@ import Layout from "../../layout";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 
 const NotFound = ({ location }) => {
-  const { pathname } = location;
 
   return (
     <Fragment>
@@ -18,8 +17,8 @@ const NotFound = ({ location }) => {
           content="404 page of flone react minimalist eCommerce template."
         />
       </MetaTags>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
+      <BreadcrumbsItem to={'/'}>Home</BreadcrumbsItem>
+      <BreadcrumbsItem to={"/"}>
         404 page
       </BreadcrumbsItem>
       <Layout headerTop="visible">

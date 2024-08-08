@@ -20,7 +20,6 @@ const Compare = ({
   deleteFromCompare,
   currency
 }) => {
-  const { pathname } = location;
   const { addToast } = useToasts();
 
   return (
@@ -32,8 +31,8 @@ const Compare = ({
           content="Compare page of flone react minimalist eCommerce template."
         />
       </MetaTags>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
+      <BreadcrumbsItem to={'/'}>Home</BreadcrumbsItem>
+      <BreadcrumbsItem to={"/"}>
         Compare
       </BreadcrumbsItem>
       <Layout headerTop="visible">
