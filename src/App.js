@@ -18,8 +18,8 @@ const Blog = lazy(() => import("./pages/blog"));
 const About = lazy(() => import("./pages/other/About"));
 const Contact = lazy(() => import("./pages/other/Contact"));
 const MyAccount = lazy(() => import("./pages/other/MyAccount"));
-const LoginRegister = lazy(() => import("./pages/other/LoginRegister"));
-
+const Register = lazy(() => import("./pages/other/Register.js"));
+const Login =lazy (()=> import("./pages/other/Login.js"));
 const Cart = lazy(() => import("./pages/other/Cart"));
 const Wishlist = lazy(() => import("./pages/other/Wishlist"));
 const Compare = lazy(() => import("./pages/other/Compare"));
@@ -64,8 +64,8 @@ const App = () => {
               <Route  path="/about" element={<About/>} />
               <Route  path="/contact" element={<Contact/>} />
               <Route  path="/my-account" element={<MyAccount/>} />
-              <Route  path="/login-register" element={<LoginRegister/>} />
-
+              <Route  path="/register" element={<Register/>} />
+              <Route  path="/login" element={<Login/>}/>
               <Route  path="/cart" element={<Cart/>} />
               <Route  path="/wishlist" element={<Wishlist/>} />
               <Route  path="/compare" element={<Compare/>} />

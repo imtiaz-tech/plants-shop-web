@@ -57,7 +57,7 @@
       padding: 40px 15px;
     }
     .login-register-form {
-      form {
+      .fields-container {
         input {
           background-color: transparent;
           border: 1px solid #ebebeb;
@@ -114,6 +114,12 @@
               color: #fff;
             }
           }
+        }
+        .danger-text {
+          color: red;
+          font-style: italic;
+          padding: 0px;
+          margin: 0px 0px 10px 0px;
         }
       }
     }

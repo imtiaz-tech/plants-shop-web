@@ -7,11 +7,12 @@ const initialState = {
     error: null,
   };
 
-  export const adduser = createAsyncThunk(
-    "auth/adduser",
-    async (userData) => {
+  export const signup = createAsyncThunk(
+    "auth/signup",
+    async (signupData) => {
       try {
-        const res = await axios.post("http://localhost:3001/Register", userData);
+        console.log("🚀 ~ userData:", signupData)
+        const res = await axios.post("http://localhost:5400/api/v1/auth/signup", signupData);
         const data = await res.data;
         return data;
       } catch (error) {
@@ -20,22 +21,46 @@ const initialState = {
     }
   );
 
+  export const login = createAsyncThunk(
+    "auth/login",
+    async(loginData) => {
+      try{
+        const res = await axios.post ("http://localhost:5400/api/v1/auth/signin",loginData);
+        const data = await res.data;
+        return data;
+      }catch(error){
+        return error.response.data
+      }
+    }
+  )
+
   const authSlice = createSlice({
     name: "auth",
     initialState,
     reducer: {},
     extraReducers: (builder) => {
-      builder.addCase(adduser.pending, (state) => {
+      builder.addCase(signup.pending, (state) => {
         state.isloading = true;
       });
-      builder.addCase(adduser.fulfilled, (state, action) => {
+      builder.addCase(signup.fulfilled, (state, action) => {
         state.isloading = false;
-        state.user = action.payload;
+        state.user = action.payload.data;
       });
-      builder.addCase(adduser.rejected, (state, action) => {
+      builder.addCase(signup.rejected, (state, action) => {
         state.isloading = false;
         state.error = action.error.message;
       });
+      builder.addCase(login.pending,(state)=>{
+        state.isloading = true;
+      });
+      builder.addCase(login.fulfilled,(state,action)=>{
+        state.isloading = false;
+        state.user = action.payload.data;
+      });
+      builder.addCase(login.rejected,(state,action)=>{
+        state.isloading = false;
+        state.error =action.error.message;
+      })
     },
   });
   export default authSlice.reducer;
