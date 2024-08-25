@@ -3,7 +3,6 @@ import React, { Fragment, useState, useEffect } from 'react';
 import MetaTags from 'react-meta-tags';
 import Paginator from 'react-hooks-paginator';
 import { BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
-import { connect } from 'react-redux';
 import { getSortedProducts } from '../../helpers/product';
 import Layout from '../../layout';
 import Breadcrumb from '../../wrappers/breadcrumb/Breadcrumb';
@@ -43,7 +42,7 @@ const ShopGridStandard = ({products}) => {
         const filterSortedProducts = getSortedProducts(sortedProducts, filterSortType, filterSortValue);
         sortedProducts = filterSortedProducts;
         setSortedProducts(sortedProducts);
-        setCurrentData(sortedProducts.slice(offset, offset + pageLimit));
+        setCurrentData(sortedProducts?.slice(offset, offset + pageLimit));
     }, [offset, products, sortType, sortValue, filterSortType, filterSortValue ]);
 
     return (
@@ -69,7 +68,7 @@ const ShopGridStandard = ({products}) => {
                             </div>
                             <div className="col-lg-9 order-1 order-lg-2">
                                 {/* shop topbar default */}
-                                <ShopTopbar getLayout={getLayout} getFilterSortParams={getFilterSortParams} productCount={products.length} sortedProductCount={currentData.length} />
+                                <ShopTopbar getLayout={getLayout} getFilterSortParams={getFilterSortParams} productCount={products?.length} sortedProductCount={currentData?.length} />
 
                                 {/* shop page content default */}
                                 <ShopProducts layout={layout} products={currentData} />
@@ -77,7 +76,7 @@ const ShopGridStandard = ({products}) => {
                                 {/* shop product pagination */}
                                 <div className="pro-pagination-style text-center mt-30">
                                     <Paginator
-                                        totalRecords={sortedProducts.length}
+                                        totalRecords={sortedProducts?.length}
                                         pageLimit={pageLimit}
                                         pageNeighbours={2}
                                         setOffset={setOffset}
@@ -97,15 +96,5 @@ const ShopGridStandard = ({products}) => {
     )
 }
 
-ShopGridStandard.propTypes = {
-  location: PropTypes.object,
-  products: PropTypes.array
-}
 
-const mapStateToProps = state => {
-    return{
-        products: state.productData.products
-    }
-}
-
-export default connect(mapStateToProps)(ShopGridStandard);
+export default ShopGridStandard;

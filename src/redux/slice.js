@@ -11,7 +11,6 @@ const initialState = {
     "auth/signup",
     async (signupData) => {
       try {
-        console.log("🚀 ~ userData:", signupData)
         const res = await axios.post("http://localhost:5400/api/v1/auth/signup", signupData);
         const data = await res.data;
         return data;
