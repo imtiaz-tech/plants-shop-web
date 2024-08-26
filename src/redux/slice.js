@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import axios from "../config/axios";
 
 const initialState = {
     user: {},
@@ -11,7 +11,7 @@ const initialState = {
     "auth/signup",
     async (signupData) => {
       try {
-        const res = await axios.post("http://localhost:5400/api/v1/auth/signup", signupData);
+        const res = await axios.post("/auth/signup", signupData);
         const data = await res.data;
         return data;
       } catch (error) {
@@ -24,7 +24,7 @@ const initialState = {
     "auth/login",
     async(loginData) => {
       try{
-        const res = await axios.post ("http://localhost:5400/api/v1/auth/signin",loginData);
+        const res = await axios.post ("/auth/signin",loginData);
         const data = await res.data;
         return data;
       }catch(error){

@@ -1,8 +1,18 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React,{useEffect}from "react";
 import { setActiveSort } from "../../helpers/product";
+import { getCategories } from "../../redux/products";
+import { useDispatch, useSelector } from "react-redux";
 
-const ShopCategories = ({ categories, getSortParams }) => {
+
+const ShopCategories = ({ getSortParams }) => {
+  const dispatch=useDispatch();
+  const { categories } = useSelector((state) => state.products || {});
+
+  useEffect(()=>{
+  dispatch(getCategories())
+  },[])
+
   return (
     <div className="sidebar-widget">
       <h4 className="pro-sidebar-title">Categories </h4>
@@ -21,9 +31,9 @@ const ShopCategories = ({ categories, getSortParams }) => {
                 </button>
               </div>
             </li>
-            {categories.map((category, key) => {
+            {categories.map((category,key) => {
               return (
-                <li key={key}>
+                <li  key={key}>
                   <div className="sidebar-widget-list-left">
                     <button
                       onClick={e => {
@@ -32,7 +42,7 @@ const ShopCategories = ({ categories, getSortParams }) => {
                       }}
                     >
                       {" "}
-                      <span className="checkmark" /> {category}{" "}
+                      <span className="checkmark" /> {category.name}{" "}
                     </button>
                   </div>
                 </li>
