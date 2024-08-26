@@ -1,46 +1,19 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import ProductGridListSingle from "../../components/product/ProductGridListSingle";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../../redux/products";
 
-const ProductGrid = ({
-  products,
-  currency,
-  addToCart,
-  addToWishlist,
-  addToCompare,
-  cartItems,
-  wishlistItems,
-  compareItems,
-  sliderClassName,
-  spaceBottomClass
-}) => {
+const ProductGrid = () => {
+  const dispatch = useDispatch();
+  const { products } = useSelector((state) => state.products || {});
+
+  useEffect(() => {
+    dispatch(getProducts());
+  }, []);
   return (
     <Fragment>
-      {products?.map(product => {
-        return (
-          <ProductGridListSingle
-            sliderClassName={sliderClassName}
-            spaceBottomClass={spaceBottomClass}
-            product={product}
-            currency={currency}
-            addToCart={addToCart}
-            addToWishlist={addToWishlist}
-            addToCompare={addToCompare}
-            cartItem={
-              cartItems.filter(cartItem => cartItem.id === product.id)[0]
-            }
-            wishlistItem={
-              wishlistItems.filter(
-                wishlistItem => wishlistItem.id === product.id
-              )[0]
-            }
-            compareItem={
-              compareItems.filter(
-                compareItem => compareItem.id === product.id
-              )[0]
-            }
-            key={product.id}
-          />
-        );
+      {products?.map((product) => {
+        return <ProductGridListSingle product={product} />;
       })}
     </Fragment>
   );
