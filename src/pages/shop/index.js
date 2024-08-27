@@ -18,6 +18,7 @@ const ShopGridStandard = () => {
   const [sortBy, setSortBy] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(12);
+  const [searchProduct, setSearchProduct] = useState("");
 
   const { products, productsCount, isLoadingProducts } = useSelector((state) => state.products || {});
 
@@ -33,6 +34,7 @@ const ShopGridStandard = () => {
     const data = {
       currentPage: pageNumber,
       recordsPerPage,
+      searchProduct,
     };
     setCurrentPage(pageNumber);
     dispatch(getProducts(data));
@@ -62,7 +64,14 @@ const ShopGridStandard = () => {
             <div className="row">
               <div className="col-lg-3 order-2 order-lg-1">
                 {/* shop sidebar */}
-                <ShopSidebar products={products} onCategorySelect={onCategorySelect} sideSpaceClass="mr-30" />
+                <ShopSidebar
+                  products={products}
+                  onSearchClick={getProductsByPage}
+                  onCategorySelect={onCategorySelect}
+                  searchProduct={searchProduct}
+                  setSearchProduct={setSearchProduct}
+                  sideSpaceClass="mr-30"
+                />
               </div>
               <div className="col-lg-9 order-1 order-lg-2">
                 {/* shop topbar default */}
