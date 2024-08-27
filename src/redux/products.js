@@ -10,10 +10,9 @@ export const getCategories = createAsyncThunk("products/get-categories", async (
     }
   });
 
-  export const getProducts = createAsyncThunk("products/get-products", async () => {
+  export const getProducts = createAsyncThunk("products/get-products", async (data) => {
     try {
-      const res = await axios.get("/unauthrized/get-products");
-      console.log("🚀 ~ getProducts ~ res:", res)
+      const res = await axios.get(`/unauthrized/get-products?perpage=${data.recordsPerPage}&pageno=${data.currentPage}`);
       return res.data;
     } catch (error) {
       return error.response.data;
@@ -24,8 +23,10 @@ export const getCategories = createAsyncThunk("products/get-categories", async (
 
 const initialState = {
     products: [],
+    productsCount: 0,
     categories: [],
-    isloading: false,
+    isLoading: false,
+    isLoadingProducts: false,
     error: null,
   };
   
@@ -42,15 +43,17 @@ const initialState = {
             state.categories = action.payload.data;
           });
           builder.addCase(getCategories.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoadingProducts = false;
             state.error = action.error.message;
           });
           builder.addCase(getProducts.pending,(state)=>{
-            state.isLoading=true;
+            state.isLoadingProducts=true;
           });
           builder.addCase(getProducts.fulfilled,(state,action)=>{
-            state.isLoading=false;
-            state.products=action.payload.data;      
+            state.isLoadingProducts=false;
+            state.products=action.payload.data;
+            state.productsCount = action.payload.count;
+      
           });
           builder.addCase(getProducts.rejected,(state,action)=>{
             state.isLoading=false;

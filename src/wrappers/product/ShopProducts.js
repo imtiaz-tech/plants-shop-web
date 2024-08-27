@@ -2,10 +2,11 @@ import PropTypes from "prop-types";
 import React from "react";
 import ProductgridList from "./ProductgridList";
 
-const ShopProducts = ({ products, layout }) => {
+const ShopProducts = (props) => {
+  const { products } = props;
   return (
     <div className="shop-bottom-area mt-35">
-      <div className={`row ${layout ? layout : ""}`}>
+      <div className={`row`}>
         <ProductgridList products={products} spaceBottomClass="mb-25" />
       </div>
     </div>

@@ -1,15 +1,9 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 import ProductGridListSingle from "../../components/product/ProductGridListSingle";
-import { useDispatch, useSelector } from "react-redux";
-import { getProducts } from "../../redux/products";
 
-const ProductGrid = () => {
-  const dispatch = useDispatch();
-  const { products } = useSelector((state) => state.products || {});
+const ProductGrid = (props) => {
+  const { products } = props;
 
-  useEffect(() => {
-    dispatch(getProducts());
-  }, []);
   return (
     <Fragment>
       {products?.map((product) => {

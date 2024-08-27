@@ -1,0 +1,21 @@
+.loading-overlay {
+  overflow-y: hidden !important;
+}
+
+.loading-overlay .modal-dialog {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.loading-overlay img {
+  height: 50px;
+}
+
+.loading-overlay .modal-content {
+  background: transparent;
+  border: none;
+  overflow: hidden;
+  margin-bottom: 250px;
+}

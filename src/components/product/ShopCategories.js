@@ -1,17 +1,17 @@
 import PropTypes from "prop-types";
-import React,{useEffect}from "react";
+import React, { useEffect } from "react";
 import { setActiveSort } from "../../helpers/product";
 import { getCategories } from "../../redux/products";
 import { useDispatch, useSelector } from "react-redux";
 
-
-const ShopCategories = ({ getSortParams }) => {
-  const dispatch=useDispatch();
+const ShopCategories = (props) => {
+  const { onCategorySelect } = props;
+  const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.products || {});
 
-  useEffect(()=>{
-  dispatch(getCategories())
-  },[])
+  useEffect(() => {
+    dispatch(getCategories());
+  }, []);
 
   return (
     <div className="sidebar-widget">
@@ -22,8 +22,8 @@ const ShopCategories = ({ getSortParams }) => {
             <li>
               <div className="sidebar-widget-list-left">
                 <button
-                  onClick={e => {
-                    getSortParams("category", "");
+                  onClick={(e) => {
+                    onCategorySelect("");
                     setActiveSort(e);
                   }}
                 >
@@ -31,13 +31,13 @@ const ShopCategories = ({ getSortParams }) => {
                 </button>
               </div>
             </li>
-            {categories.map((category,key) => {
+            {categories.map((category, key) => {
               return (
-                <li  key={key}>
+                <li key={key}>
                   <div className="sidebar-widget-list-left">
                     <button
-                      onClick={e => {
-                        getSortParams("category", category);
+                      onClick={(e) => {
+                        onCategorySelect(category);
                         setActiveSort(e);
                       }}
                     >
@@ -59,7 +59,7 @@ const ShopCategories = ({ getSortParams }) => {
 
 ShopCategories.propTypes = {
   categories: PropTypes.array,
-  getSortParams: PropTypes.func
+  getSortParams: PropTypes.func,
 };
 
 export default ShopCategories;
