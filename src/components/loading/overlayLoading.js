@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Spinner } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import "./loadingOverlay.css";
 import loadingGif from "./loading.gif"
 

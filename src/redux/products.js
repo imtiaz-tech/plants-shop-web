@@ -12,7 +12,15 @@ export const getCategories = createAsyncThunk("products/get-categories", async (
 
 export const getProducts = createAsyncThunk("products/get-products", async (data) => {
   try {
-    const res = await axios.get(`/unauthrized/get-products?perpage=${data.recordsPerPage}&pageno=${data.currentPage}&searchProduct=${data.searchProduct}`);
+    const res = await axios.get("/unauthrized/get-products", {
+      params: {
+        perpage: data.recordsPerPage,
+        pageno: data.currentPage,
+        searchProduct: data.searchProduct,
+        selectCategory: data.selectCategory,
+        sortBy: data.sortBy,
+      },
+    });
     return res.data;
   } catch (error) {
     return error.response.data;

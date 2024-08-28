@@ -30,19 +30,20 @@ const ShopGridStandard = () => {
     setSortBy(sortByType);
   };
 
-  const getProductsByPage = (pageNumber) => {
+  const getProductsByPage = () => {
     const data = {
-      currentPage: pageNumber,
+      currentPage,
       recordsPerPage,
       searchProduct,
+      sortBy,
+      selectCategory: selectCategory._id,
     };
-    setCurrentPage(pageNumber);
     dispatch(getProducts(data));
   };
 
   useEffect(() => {
-    getProductsByPage(currentPage);
-  }, []);
+    getProductsByPage();
+  }, [currentPage, selectCategory, sortBy]);
 
   return (
     <Fragment>
@@ -92,7 +93,7 @@ const ShopGridStandard = () => {
                       console.log(e);
                     }}
                     currentPage={currentPage}
-                    setCurrentPage={getProductsByPage}
+                    setCurrentPage={setCurrentPage}
                     pageContainerClass="mb-0 mt-0"
                     pagePrevText="«"
                     pageNextText="»"

@@ -1,25 +1,16 @@
 import React, { Fragment, useState, useEffect } from "react";
-import Swiper from "react-id-swiper";
 import { getProductCartQuantity } from "../../helpers/product";
 import { Modal } from "react-bootstrap";
-import Rating from "./sub-components/ProductRating";
 
 function ProductModal(props) {
   const { product } = props;
-  const { currency } = props;
-  const { discountedprice } = props;
-  const { finalproductprice } = props;
-  const { finaldiscountedprice } = props;
+  
 
   const [gallerySwiper, getGallerySwiper] = useState(null);
   const [thumbnailSwiper, getThumbnailSwiper] = useState(null);
-  const [selectedProductColor, setSelectedProductColor] = useState(product.variation ? product.variation[0].color : "");
-  const [selectedProductSize, setSelectedProductSize] = useState(
-    product.variation ? product.variation[0].size[0].name : ""
-  );
-  const [productStock, setProductStock] = useState(
-    product.variation ? product.variation[0].size[0].stock : product.quantity
-  );
+  
+  
+  const [productStock, setProductStock] = useState( product.quantity);
   const [quantityCount, setQuantityCount] = useState(1);
 
   const wishlistItem = props.wishlistitem;
@@ -32,7 +23,7 @@ function ProductModal(props) {
   const addToast = props.addtoast;
   const cartItems = props.cartitems;
 
-  const productCartQty = getProductCartQuantity(cartItems, product, selectedProductColor, selectedProductSize);
+  const productCartQty = getProductCartQuantity(cartItems, product);
 
   useEffect(() => {
     if (gallerySwiper !== null && gallerySwiper.controller && thumbnailSwiper !== null && thumbnailSwiper.controller) {
@@ -188,8 +179,7 @@ function ProductModal(props) {
                       {productStock && productStock > 0 ? (
                         <button
                           onClick={() =>
-                            addToCart(product, addToast, quantityCount,selectedProductColor,
-                              selectedProductSize)
+                            addToCart(product, addToast, quantityCount)
                           }
                           disabled={productCartQty >= productStock}
                         >
