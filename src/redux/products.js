@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../config/axios";
+import uuid from "uuid/v4";
 
 export const getCategories = createAsyncThunk("products/get-categories", async () => {
   try {
@@ -27,6 +28,7 @@ export const getProducts = createAsyncThunk("products/get-products", async (data
   }
 });
 
+
 const initialState = {
   products: [],
   productsCount: 0,
@@ -39,7 +41,7 @@ const initialState = {
 const productSlice = createSlice({
   name: "products",
   initialState,
-  reducer: {},
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getCategories.pending, (state) => {
       state.isLoading = true;

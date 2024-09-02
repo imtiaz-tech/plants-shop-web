@@ -3,69 +3,58 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import { getDiscountPrice } from "../../../helpers/product";
+import { useSelector, useDispatch } from "react-redux";
+import { removeFromCart } from "../../../redux/authUser";
 
-const MenuCart = ({ cartData, currency, deleteFromCart }) => {
+
+const MenuCart = (props) => {
+  const{  currency, deleteFromCart } =props
   let cartTotalPrice = 0;
   const { addToast } = useToasts();
+  const dispatch=useDispatch();
+  const { cart } = useSelector((state) => state.auth || {});
+
+
+  const totalPrice = cart?.reduce((totalProducts ,cartItem) => {
+    return totalProducts += cartItem.product?.price * cartItem.quantityCount;
+  }, 0)
+
+  const productRemoveFromCart = (_id) => {
+    dispatch(removeFromCart(_id));
+  };
+
   return (
     <div className="shopping-cart-content">
-      {cartData && cartData.length > 0 ? (
+      {cart && cart.length > 0 ? (
         <Fragment>
           <ul>
-            {cartData.map((single, key) => {
-              const discountedPrice = getDiscountPrice(
-                single.price,
-                single.discount
-              );
-              const finalProductPrice = (
-                single.price * currency.currencyRate
-              ).toFixed(2);
-              const finalDiscountedPrice = (
-                discountedPrice * currency.currencyRate
-              ).toFixed(2);
-
-              discountedPrice != null
-                ? (cartTotalPrice += finalDiscountedPrice * single.quantity)
-                : (cartTotalPrice += finalProductPrice * single.quantity);
-
+            {cart.map((cart, key) => {
+              
               return (
                 <li className="single-shopping-cart" key={key}>
                   <div className="shopping-cart-img">
-                    <Link to={process.env.PUBLIC_URL + "/product/" + single.id}>
+                    <Link to={process.env.PUBLIC_URL + "/product/" + cart?.id}>
                       <img
                         alt=""
-                        src={process.env.PUBLIC_URL + single.image[0]}
+                        src={cart.product?.image}
                         className="img-fluid"
                       />
                     </Link>
                   </div>
                   <div className="shopping-cart-title">
                     <h4>
-                      <Link
-                        to={process.env.PUBLIC_URL + "/product/" + single.id}
-                      >
-                        {" "}
-                        {single.name}{" "}
+                      <Link>
+                        {cart.product?.name}
                       </Link>
                     </h4>
-                    <h6>Qty: {single.quantity}</h6>
+                    <h6>Qty: {cart.quantityCount}</h6>
                     <span>
-                      {discountedPrice !== null
-                        ? currency.currencySymbol + finalDiscountedPrice
-                        : currency.currencySymbol + finalProductPrice}
+                    {cart.product?.price}
                     </span>
-                    {single.selectedProductColor &&
-                    single.selectedProductSize ? (
-                      <div className="cart-item-variation">
-                        <span>Color: {single.selectedProductColor}</span>
-                        <span>Size: {single.selectedProductSize}</span>
-                      </div>
-                    ) : (
-                      ""
-                    )}
+                    
                   </div>
                   <div className="shopping-cart-delete">
-                    <button onClick={() => deleteFromCart(single, addToast)}>
+                    <button onClick={() => productRemoveFromCart(cart.product._id)}>
                       <i className="fa fa-times-circle" />
                     </button>
                   </div>
@@ -75,19 +64,19 @@ const MenuCart = ({ cartData, currency, deleteFromCart }) => {
           </ul>
           <div className="shopping-cart-total">
             <h4>
-              Total :{" "}
+              Total: {""}
               <span className="shop-total">
-                {currency.currencySymbol + cartTotalPrice.toFixed(2)}
+                {totalPrice}
               </span>
             </h4>
           </div>
           <div className="shopping-cart-btn btn-hover text-center">
-            <Link className="default-btn" to={process.env.PUBLIC_URL + "/cart"}>
+            <Link className="default-btn" to={ "/cart"}>
               view cart
             </Link>
             <Link
               className="default-btn"
-              to={process.env.PUBLIC_URL + "/checkout"}
+              to={ "/checkout"}
             >
               checkout
             </Link>

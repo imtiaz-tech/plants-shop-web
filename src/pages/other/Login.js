@@ -6,7 +6,7 @@ import Nav from "react-bootstrap/Nav";
 import Layout from "../../layout";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useDispatch } from "react-redux";
-import { login } from "../../redux/slice";
+import { login } from "../../redux/authUser";
 
 const Register = () => {
   const [password, setpassword] = useState("");

@@ -35,7 +35,7 @@ export const getDiscountPrice = (price, discount) => {
 export const getProductCartQuantity = (cartItems, product, color, size) => {
   let productInCart = cartItems?.filter(
     single =>
-      single.id === product.id &&
+      single?.id === product?.id &&
       (single.selectedProductColor
         ? single.selectedProductColor === color
         : true) &&

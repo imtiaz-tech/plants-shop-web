@@ -1,26 +1,34 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { getProductCartQuantity } from "../../helpers/product";
 import { Modal } from "react-bootstrap";
+import { addToCart } from "../../redux/authUser";
+import { useDispatch } from "react-redux";
 
 function ProductModal(props) {
-  const { product } = props;
-  
+  const { product, addToast,setQuantityCount,quantityCount } = props;
 
+  const dispatch = useDispatch();
   const [gallerySwiper, getGallerySwiper] = useState(null);
   const [thumbnailSwiper, getThumbnailSwiper] = useState(null);
-  
-  
-  const [productStock, setProductStock] = useState( product.quantity);
-  const [quantityCount, setQuantityCount] = useState(1);
+
+  const [productStock, setProductStock] = useState(product.quantity);
 
   const wishlistItem = props.wishlistitem;
   const compareItem = props.compareitem;
 
-  const addToCart = props.addtocart;
+  const productAddToCart = () => {
+    const data = {
+      product,
+      quantityCount,
+      id:product._id,
+      
+    };
+    dispatch(addToCart(data));
+  };
+
   const addToWishlist = props.addtowishlist;
   const addToCompare = props.addtocompare;
 
-  const addToast = props.addtoast;
   const cartItems = props.cartitems;
 
   const productCartQty = getProductCartQuantity(cartItems, product);
@@ -177,12 +185,7 @@ function ProductModal(props) {
                     </div>
                     <div className="pro-details-cart btn-hover">
                       {productStock && productStock > 0 ? (
-                        <button
-                          onClick={() =>
-                            addToCart(product, addToast, quantityCount)
-                          }
-                          disabled={productCartQty >= productStock}
-                        >
+                        <button onClick={ productAddToCart} disabled={productCartQty >= productStock}>
                           {" "}
                           Add To Cart{" "}
                         </button>

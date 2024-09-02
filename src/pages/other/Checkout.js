@@ -7,9 +7,16 @@ import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import { getDiscountPrice } from "../../helpers/product";
 import Layout from "../../layout";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+import { useSelector } from "react-redux";
 
-const Checkout = ({ location, cartItems, currency }) => {
+
+const Checkout = () => {
   let cartTotalPrice = 0;
+  const { cart } = useSelector((state) => state.auth || {});
+
+  const totalPrice = cart?.reduce((totalProducts, cartItem) => {
+    return (totalProducts += cartItem.product?.price * cartItem.quantityCount);
+  }, 0);
 
   return (
     <Fragment>
@@ -29,7 +36,7 @@ const Checkout = ({ location, cartItems, currency }) => {
         <Breadcrumb />
         <div className="checkout-area pt-95 pb-100">
           <div className="container">
-            {cartItems && cartItems.length >= 1 ? (
+            {cart && cart.length >= 1 ? (
               <div className="row">
                 <div className="col-lg-7">
                   <div className="billing-info-wrap">
@@ -139,39 +146,30 @@ const Checkout = ({ location, cartItems, currency }) => {
                         </div>
                         <div className="your-order-middle">
                           <ul>
-                            {cartItems.map((cartItem, key) => {
-                              const discountedPrice = getDiscountPrice(
-                                cartItem.price,
-                                cartItem.discount
-                              );
-                              const finalProductPrice = (
-                                cartItem.price * currency.currencyRate
-                              ).toFixed(2);
-                              const finalDiscountedPrice = (
-                                discountedPrice * currency.currencyRate
-                              ).toFixed(2);
+                            {cart.map((cart, key) => {
+                              // const discountedPrice = getDiscountPrice(
+                              //   cartItem.price,
+                              //   cartItem.discount
+                              // );
+                              // const finalProductPrice = (
+                              //   cartItem.price * currency.currencyRate
+                              // ).toFixed(2);
+                              // const finalDiscountedPrice = (
+                              //   discountedPrice * currency.currencyRate
+                              // ).toFixed(2);
 
-                              discountedPrice != null
-                                ? (cartTotalPrice +=
-                                    finalDiscountedPrice * cartItem.quantity)
-                                : (cartTotalPrice +=
-                                    finalProductPrice * cartItem.quantity);
+                              // discountedPrice != null
+                              //   ? (cartTotalPrice +=
+                              //       finalDiscountedPrice * cartItem.quantity)
+                              //   : (cartTotalPrice +=
+                              //       finalProductPrice * cartItem.quantity);
                               return (
                                 <li key={key}>
                                   <span className="order-middle-left">
-                                    {cartItem.name} X {cartItem.quantity}
+                                    {cart.product.name} X {cart.quantityCount}
                                   </span>{" "}
                                   <span className="order-price">
-                                    {discountedPrice !== null
-                                      ? currency.currencySymbol +
-                                        (
-                                          finalDiscountedPrice *
-                                          cartItem.quantity
-                                        ).toFixed(2)
-                                      : currency.currencySymbol +
-                                        (
-                                          finalProductPrice * cartItem.quantity
-                                        ).toFixed(2)}
+                                    {totalPrice}
                                   </span>
                                 </li>
                               );
@@ -188,8 +186,7 @@ const Checkout = ({ location, cartItems, currency }) => {
                           <ul>
                             <li className="order-total">Total</li>
                             <li>
-                              {currency.currencySymbol +
-                                cartTotalPrice.toFixed(2)}
+                              {totalPrice}
                             </li>
                           </ul>
                         </div>
