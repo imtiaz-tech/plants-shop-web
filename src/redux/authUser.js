@@ -48,6 +48,10 @@ const authSlice = createSlice({
       if (cartItem) {
         cartItem.quantityCount = quantity;
       }
+    },
+    productAddToCart (state,action){
+      const productId=action.payload;
+      state.cart=state.cart?.find((product) => product.product._id === productId)
     }
   },
   extraReducers: (builder) => {
@@ -75,6 +79,6 @@ const authSlice = createSlice({
     });
   },
 });
-export const { addToCart,removeFromCart,updateCartQuantity } = authSlice.actions;
+export const { addToCart,removeFromCart,updateCartQuantity,productAddToCart } = authSlice.actions;
 
 export default authSlice.reducer;

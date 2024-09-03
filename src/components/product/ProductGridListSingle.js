@@ -2,27 +2,35 @@ import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import ProductModal from "./ProductModal";
-import { addToCart } from "../../redux/authUser";
+import { addToCart,productAddToCart } from "../../redux/authUser";
 import { useDispatch,useSelector } from "react-redux";
 
 const ProductGridListSingle = (props) => {
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const { product } = props;
   const [modalShow, setModalShow] = useState(false);
   const { addToast } = useToasts();
   const [quantityCount, setQuantityCount] = useState(1);
-  const { cart } = useSelector((state) => state.auth || {});
 
+  const { cart } = useSelector((state) => state.auth || {});
+  console.log("🚀 ~ ProductGridListSingle ~ cart:", cart);
+  const item = cart?.find((item) => {
+    return product._id == product._id;
+  });
+  console.log("🚀 ~ ProductGridListSingle ~ item:", item);
 
   const AddToCart = () => {
-    const data = {
-      product,
-      quantityCount,
-      id:product._id,
-      
-    };
-    dispatch(addToCart(data));
+    dispatch(productAddToCart());
   };
+
+  // const AddToCart = () => {
+  //   const data = {
+  //     product,
+  //     quantityCount,
+  //     id: product._id,
+  //   };
+  //   dispatch(addToCart(data));
+  // };
 
   return (
     <Fragment>
@@ -46,14 +54,12 @@ const ProductGridListSingle = (props) => {
               <div className="pro-same-action pro-cart">
                 <button
                  onClick={()=> AddToCart ()}
-                 className={cart && cart.quantity > 0 ? "active" : ""}
-                
-                > 
-                  {""} 
+                >
+                  {""}
                   <i className="pe-7s-cart"></i>
-                  {cart && cart.quantity > 0 ? "Added" : "Add to cart"}
+                  {cart !== undefined && cart.quantity > 0 ? "Added" : "Add to cart"}
 
-                      {/* Add to cart */}
+                  {/* Add to cart */}
                 </button>
               </div>
               <div className="pro-same-action pro-quickview">
@@ -64,9 +70,7 @@ const ProductGridListSingle = (props) => {
             </div>
           </div>
           <div className="product-content text-center">
-            <h3>
-              {product.name}
-            </h3>
+            <h3>{product.name}</h3>
             <div className="product-price">
               <span>PKR {product.price} </span>
             </div>
@@ -80,13 +84,6 @@ const ProductGridListSingle = (props) => {
         product={product}
         quantityCount={quantityCount}
         setQuantityCount={setQuantityCount}
-        // currency={currency}
-        // cartitem={cartItem}
-        // wishlistitem={wishlistItem}
-        // compareitem={compareItem}
-        // addtocart={addToCart}
-        // addtowishlist={addToWishlist}
-        // addtocompare={addToCompare}
         addtoast={addToast}
       />
     </Fragment>

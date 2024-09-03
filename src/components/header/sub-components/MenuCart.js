@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
-import { getDiscountPrice } from "../../../helpers/product";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart } from "../../../redux/authUser";
 
@@ -87,10 +86,5 @@ const MenuCart = () => {
   );
 };
 
-MenuCart.propTypes = {
-  cartData: PropTypes.array,
-  currency: PropTypes.object,
-  deleteFromCart: PropTypes.func
-};
 
 export default MenuCart;

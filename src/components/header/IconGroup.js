@@ -1,15 +1,9 @@
-import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
 import MenuCart from "./sub-components/MenuCart";
-import { deleteFromCart } from "../../redux-old/actions/cartActions";
 import { useSelector } from "react-redux";
 
 const IconGroup = ({
-  currency,
-  cartData,
-  deleteFromCart,
   iconWhiteClass
 }) => {
 
@@ -77,10 +71,7 @@ const IconGroup = ({
           </span>
         </button>
         {/* menu cart */}
-        <MenuCart
-          currency={currency}
-          deleteFromCart={deleteFromCart}
-        />
+        <MenuCart/>
       </div>
       <div className="same-style cart-wrap d-block d-lg-none">
         <Link className="icon-cart" to={process.env.PUBLIC_URL + "/cart"}>
@@ -102,30 +93,5 @@ const IconGroup = ({
   );
 };
 
-IconGroup.propTypes = {
-  cartData: PropTypes.array,
-  compareData: PropTypes.array,
-  currency: PropTypes.object,
-  iconWhiteClass: PropTypes.string,
-  deleteFromCart: PropTypes.func,
-  wishlistData: PropTypes.array
-};
 
-const mapStateToProps = state => {
-  return {
-    currency: state.currencyData,
-    cartData: state.cartData,
-    wishlistData: state.wishlistData,
-    compareData: state.compareData
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    deleteFromCart: (item, addToast) => {
-      dispatch(deleteFromCart(item, addToast));
-    }
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(IconGroup);
+export default IconGroup;
