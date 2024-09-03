@@ -6,8 +6,7 @@ const initialState = {
   isloading: false,
   error: null,
   cart: [],
- initialValue: 0,
-
+  initialValue: 0,
 };
 
 export const signup = createAsyncThunk("auth/signup", async (signupData) => {
@@ -37,22 +36,17 @@ const authSlice = createSlice({
     addToCart(state, action) {
       state.cart = [...state.cart, action.payload];
     },
-    removeFromCart(state, action){  
-    const productId = action.payload; 
-    state.cart = state.cart.filter((product) => product.id !== productId);
-
+    removeFromCart(state, action) {
+      const productId = action.payload;
+      state.cart = state.cart.filter((product) => product.id !== productId);
     },
-    updateCartQuantity (state, action) {
+    updateCartQuantity(state, action) {
       const { productId, quantity } = action.payload;
       const cartItem = state.cart.find((item) => item.product._id === productId);
       if (cartItem) {
         cartItem.quantityCount = quantity;
       }
     },
-    productAddToCart (state,action){
-      const productId=action.payload;
-      state.cart=state.cart?.find((product) => product.product._id === productId)
-    }
   },
   extraReducers: (builder) => {
     builder.addCase(signup.pending, (state) => {
@@ -79,6 +73,6 @@ const authSlice = createSlice({
     });
   },
 });
-export const { addToCart,removeFromCart,updateCartQuantity,productAddToCart } = authSlice.actions;
+export const { addToCart, removeFromCart, updateCartQuantity } = authSlice.actions;
 
 export default authSlice.reducer;

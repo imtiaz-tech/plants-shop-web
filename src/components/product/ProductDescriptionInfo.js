@@ -1,50 +1,47 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { getProductCartQuantity } from "../../helpers/product";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { addToCart } from "../../redux/authUser";
-const ProductDescriptionInfo = (props) => {
-  const {product,
-    cartItems,
-    }=props
-  const dispatch=useDispatch();
-  // const [productStock, setProductStock] = useState( product.quantity);
-  const [quantityCount, setQuantityCount] = useState(1);
+import { useToasts } from "react-toast-notifications";
 
-  const productCartQty = getProductCartQuantity(
-    cartItems,
-    product,
-  );
+const ProductDescriptionInfo = (props) => {
+  const { product, cartItems } = props;
+  const dispatch = useDispatch();
+  const [quantityCount, setQuantityCount] = useState(1);
+  const { addToast } = useToasts();
+
+  const productCartQty = getProductCartQuantity(cartItems, product);
+  
+  const { cart } = useSelector((state) => state.auth || {});
+  const singleProduct = cart?.find((item) => item.id == product._id);
+
 
   const AddToCart = () => {
     const data = {
       product,
       quantityCount,
-      id:product._id,
-      
+      id: product._id,
     };
     dispatch(addToCart(data));
+    addToast(`${product.name} added to cart`, { appearance: "success" });
   };
 
   return (
     <div className="product-details-content ml-70">
       <h2>{product?.name}</h2>
       <div className="product-details-price">
-        
-          <span>{product.price} </span>
-      
+        <span>{product.price} </span>
       </div>
-      <div  dangerouslySetInnerHTML={{
-                    __html: product.textEditor,
-                  }} className="pro-details-list">
-      </div>
+      <div
+        dangerouslySetInnerHTML={{
+          __html: product.textEditor,
+        }}
+        className="pro-details-list"
+      ></div>
       {product?.affiliateLink ? (
         <div className="pro-details-quality">
           <div className="pro-details-cart btn-hover ml-0">
-            <a
-              href={product.affiliateLink}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
+            <a href={product.affiliateLink} rel="noopener noreferrer" target="_blank">
               Buy Now
             </a>
           </div>
@@ -53,26 +50,15 @@ const ProductDescriptionInfo = (props) => {
         <div className="pro-details-quality">
           <div className="cart-plus-minus">
             <button
-              onClick={() =>
-                setQuantityCount(quantityCount > 1 ? quantityCount - 1 : 1)
-              }
+              onClick={() => setQuantityCount(quantityCount > 1 ? quantityCount - 1 : 1)}
               className="dec qtybutton"
             >
               -
             </button>
-            <input
-              className="cart-plus-minus-box"
-              type="text"
-              value={quantityCount}
-              readOnly
-            />
+            <input className="cart-plus-minus-box" type="text" value={quantityCount} readOnly />
             <button
               onClick={() =>
-                setQuantityCount(
-                  quantityCount < product.quantity - productCartQty
-                    ? quantityCount + 1
-                    : quantityCount
-                )
+                setQuantityCount(quantityCount < product.quantity - productCartQty ? quantityCount + 1 : quantityCount)
               }
               className="inc qtybutton"
             >
@@ -81,12 +67,7 @@ const ProductDescriptionInfo = (props) => {
           </div>
           <div className="pro-details-cart btn-hover">
             {product.quantity && product.quantity > 0 ? (
-              <button
-                onClick={() =>
-                  AddToCart()
-                }
-                disabled={productCartQty >= product.quantity}
-              >
+              <button onClick={() => AddToCart()} disabled={singleProduct} className={singleProduct ? "active not-allowed" : ""}>
                 {" "}
                 Add To Cart{" "}
               </button>
@@ -99,9 +80,5 @@ const ProductDescriptionInfo = (props) => {
     </div>
   );
 };
-
-
-
-
 
 export default ProductDescriptionInfo;

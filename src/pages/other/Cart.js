@@ -1,52 +1,51 @@
-import PropTypes from "prop-types";
 import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
-import { connect, useDispatch } from "react-redux";
-import { getDiscountPrice } from "../../helpers/product";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-
-// import {
-//   addToCart,
-//   decreaseQuantity,
-//   deleteFromCart,
-//   cartItemStock,
-//   deleteAllFromCart
-// } from "../../redux-old/actions/cartActions";
-import { removeFromCart,updateCartQuantity } from "../../redux/authUser";
+import { removeFromCart, updateCartQuantity } from "../../redux/authUser";
 import Layout from "../../layout";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 
 const Cart = () => {
-  
-
   const dispatch = useDispatch();
 
   const { addToast } = useToasts();
-  let cartTotalPrice = 0;
   const { cart } = useSelector((state) => state.auth || {});
   const [quantityCount] = useState(1);
 
   const incrementQuantity = (cart) => {
     if (cart.quantityCount < cart.product.quantity) {
-      dispatch(updateCartQuantity({ productId: cart.product?._id, quantity: cart.quantityCount + 1 }));
+      dispatch(
+        updateCartQuantity({
+          productId: cart.product?._id,
+          quantity: cart.quantityCount + 1,
+          addToast: addToast("added to cart", { appearance: "success" }),
+        })
+      );
     }
   };
 
   const decrementQuantity = (cart) => {
     if (cart.quantityCount < cart.product.quantity) {
-      dispatch(updateCartQuantity({ productId: cart.product?._id, quantity: cart.quantityCount - 1 }));
+      dispatch(
+        updateCartQuantity({
+          productId: cart.product?._id,
+          quantity: cart.quantityCount - 1,
+          addToast: addToast("removed to cart", { appearance: "success" }),
+        })
+      );
     }
   };
-
 
   const totalPrice = cart?.reduce((totalProducts, cartItem) => {
     return (totalProducts += cartItem.product?.price * cartItem.quantityCount);
   }, 0);
 
   const productRemoveFromCart = (_id) => {
+    addToast("Removed to cart", { appearance: "success" });
     dispatch(removeFromCart(_id));
   };
 
@@ -84,22 +83,10 @@ const Cart = () => {
                         </thead>
                         <tbody>
                           {cart.map((cart, key) => {
-                            // const finalProductPrice = (
-                            //   cartItem.price * currency.currencyRate
-                            // ).toFixed(2);
-                            // const finalDiscountedPrice = (
-                            //   discountedPrice * currency.currencyRate
-                            // ).toFixed(2);
-
-                            // discountedPrice != null
-                            //   ? (cartTotalPrice +=
-                            //       finalDiscountedPrice * cartItem.quantity)
-                            //   : (cartTotalPrice +=
-                            //       finalProductPrice * cartItem.quantity);
                             return (
                               <tr key={key}>
                                 <td className="product-thumbnail">
-                                  <Link to={"/product" }>
+                                  <Link to={"/product"}>
                                     <img className="img-fluid" src={cart.product?.image} alt="" />
                                   </Link>
                                 </td>
@@ -112,10 +99,7 @@ const Cart = () => {
 
                                 <td className="product-quantity">
                                   <div className="cart-plus-minus">
-                                    <button
-                                      className="dec qtybutton"
-                                       onClick={() =>  decrementQuantity(cart) }
-                                    >
+                                    <button className="dec qtybutton" onClick={() => decrementQuantity(cart)}>
                                       -
                                     </button>
                                     <input
@@ -124,25 +108,13 @@ const Cart = () => {
                                       value={cart.quantityCount}
                                       readOnly
                                     />
-                                    <button
-                                      className="inc qtybutton"
-                                      onClick={() => incrementQuantity(cart)}
-                                    >
+                                    <button className="inc qtybutton" onClick={() => incrementQuantity(cart)}>
                                       +
                                     </button>
                                   </div>
                                 </td>
                                 <td className="product-subtotal">
                                   {cart.product?.price * cart.quantityCount}
-                                  {/* {discountedPrice !== null
-                                    ? currency.currencySymbol +
-                                      (
-                                        finalDiscountedPrice * cartItem.quantity
-                                      ).toFixed(2)
-                                    : currency.currencySymbol +
-                                      (
-                                        finalProductPrice * cartItem.quantity
-                                      ).toFixed(2)} */}
                                 </td>
 
                                 <td className="product-remove">
@@ -162,7 +134,7 @@ const Cart = () => {
                   <div className="col-lg-12">
                     <div className="cart-shiping-update-wrapper">
                       <div className="cart-shiping-update">
-                        <Link to={ "/shop-grid-standard"}>Continue Shopping</Link>
+                        <Link to={"/shop-grid-standard"}>Continue Shopping</Link>
                       </div>
                       <div className="cart-clear">
                         {/* <button onClick={() => deleteAllFromCart(addToast)}>
@@ -265,8 +237,7 @@ const Cart = () => {
                       <i className="pe-7s-cart"></i>
                     </div>
                     <div className="item-empty-area__text">
-                      No items found in cart <br />{" "}
-                      <Link to={"/shop"}>Shop Now</Link>
+                      No items found in cart <br /> <Link to={"/shop"}>Shop Now</Link>
                     </div>
                   </div>
                 </div>

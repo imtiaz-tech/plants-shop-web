@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
@@ -18,6 +17,7 @@ const MenuCart = () => {
 
   const productRemoveFromCart = (_id) => {
     dispatch(removeFromCart(_id));
+    addToast("Removed to cart", { appearance: "success" });
   };
 
   return (
@@ -51,7 +51,7 @@ const MenuCart = () => {
                     
                   </div>
                   <div className="shopping-cart-delete">
-                    <button onClick={() => productRemoveFromCart(cart.product._id)}>
+                    <button onClick={() => productRemoveFromCart(cart.product?._id)}>
                       <i className="fa fa-times-circle" />
                     </button>
                   </div>

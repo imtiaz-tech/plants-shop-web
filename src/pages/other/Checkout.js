@@ -1,8 +1,6 @@
-import PropTypes from "prop-types";
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import MetaTags from "react-meta-tags";
-import { connect } from "react-redux";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import Layout from "../../layout";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
@@ -10,7 +8,6 @@ import { useSelector } from "react-redux";
 
 
 const Checkout = () => {
-  let cartTotalPrice = 0;
   const { cart } = useSelector((state) => state.auth || {});
 
   const totalPrice = cart?.reduce((totalProducts, cartItem) => {
@@ -146,22 +143,6 @@ const Checkout = () => {
                         <div className="your-order-middle">
                           <ul>
                             {cart.map((cart, key) => {
-                              // const discountedPrice = getDiscountPrice(
-                              //   cartItem.price,
-                              //   cartItem.discount
-                              // );
-                              // const finalProductPrice = (
-                              //   cartItem.price * currency.currencyRate
-                              // ).toFixed(2);
-                              // const finalDiscountedPrice = (
-                              //   discountedPrice * currency.currencyRate
-                              // ).toFixed(2);
-
-                              // discountedPrice != null
-                              //   ? (cartTotalPrice +=
-                              //       finalDiscountedPrice * cartItem.quantity)
-                              //   : (cartTotalPrice +=
-                              //       finalProductPrice * cartItem.quantity);
                               return (
                                 <li key={key}>
                                   <span className="order-middle-left">
@@ -222,17 +203,5 @@ const Checkout = () => {
   );
 };
 
-Checkout.propTypes = {
-  cartItems: PropTypes.array,
-  currency: PropTypes.object,
-  location: PropTypes.object
-};
 
-const mapStateToProps = state => {
-  return {
-    cartItems: state.cartData,
-    currency: state.currencyData
-  };
-};
-
-export default connect(mapStateToProps)(Checkout);
+export default Checkout;

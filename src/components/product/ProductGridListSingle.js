@@ -2,8 +2,8 @@ import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import ProductModal from "./ProductModal";
-import { addToCart,productAddToCart } from "../../redux/authUser";
-import { useDispatch,useSelector } from "react-redux";
+import { addToCart } from "../../redux/authUser";
+import { useDispatch, useSelector } from "react-redux";
 
 const ProductGridListSingle = (props) => {
   const dispatch = useDispatch();
@@ -13,24 +13,19 @@ const ProductGridListSingle = (props) => {
   const [quantityCount, setQuantityCount] = useState(1);
 
   const { cart } = useSelector((state) => state.auth || {});
-  console.log("🚀 ~ ProductGridListSingle ~ cart:", cart);
-  const item = cart?.find((item) => {
-    return product._id == product._id;
-  });
-  console.log("🚀 ~ ProductGridListSingle ~ item:", item);
+  const singleProduct = cart?.find((item) => item.id == product._id);
 
   const AddToCart = () => {
-    dispatch(productAddToCart());
+    const data = {
+      product,
+      quantityCount,
+      id: product._id,
+    };
+    dispatch(addToCart(data));
+    addToast(`${product.name} Added to cart`, { appearance: "success" });
+
   };
 
-  // const AddToCart = () => {
-  //   const data = {
-  //     product,
-  //     quantityCount,
-  //     id: product._id,
-  //   };
-  //   dispatch(addToCart(data));
-  // };
 
   return (
     <Fragment>
@@ -41,25 +36,10 @@ const ProductGridListSingle = (props) => {
               <img className="default-img" src={product.image} alt="" />
             </Link>
             <div className="product-action">
-              {/* <div className="pro-same-action pro-wishlist">
-                <button
-                className={wishlistItem !== undefined ? "active" : ""}
-                disabled={wishlistItem !== undefined}
-                title={wishlistItem !== undefined ? "Added to wishlist" : "Add to wishlist"}
-                onClick={() => addToWishlist(product, addToast)}
-                >
-                  <i className="pe-7s-like" />
-                </button>
-              </div> */}
               <div className="pro-same-action pro-cart">
-                <button
-                 onClick={()=> AddToCart ()}
-                >
-                  {""}
+                <button onClick={() => AddToCart()} disabled={singleProduct} className={singleProduct ? "active not-allowed" : ""}>
                   <i className="pe-7s-cart"></i>
-                  {cart !== undefined && cart.quantity > 0 ? "Added" : "Add to cart"}
-
-                  {/* Add to cart */}
+                  {singleProduct ? "Added" : "Add to cart"}
                 </button>
               </div>
               <div className="pro-same-action pro-quickview">
