@@ -7,9 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart } from "../../../redux/authUser";
 
 
-const MenuCart = (props) => {
-  const{  currency, deleteFromCart } =props
-  let cartTotalPrice = 0;
+const MenuCart = () => {
   const { addToast } = useToasts();
   const dispatch=useDispatch();
   const { cart } = useSelector((state) => state.auth || {});

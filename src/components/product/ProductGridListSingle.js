@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import ProductModal from "./ProductModal";
 import { addToCart } from "../../redux/authUser";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 
 const ProductGridListSingle = (props) => {
   const dispatch=useDispatch();
@@ -11,6 +11,7 @@ const ProductGridListSingle = (props) => {
   const [modalShow, setModalShow] = useState(false);
   const { addToast } = useToasts();
   const [quantityCount, setQuantityCount] = useState(1);
+  const { cart } = useSelector((state) => state.auth || {});
 
 
   const AddToCart = () => {
@@ -44,11 +45,15 @@ const ProductGridListSingle = (props) => {
               </div> */}
               <div className="pro-same-action pro-cart">
                 <button
-                 onClick={()=> AddToCart ()} 
+                 onClick={()=> AddToCart ()}
+                 className={cart && cart.quantity > 0 ? "active" : ""}
                 
                 > 
                   {""} 
-                  <i className="pe-7s-cart"></i>Add to cart
+                  <i className="pe-7s-cart"></i>
+                  {cart && cart.quantity > 0 ? "Added" : "Add to cart"}
+
+                      {/* Add to cart */}
                 </button>
               </div>
               <div className="pro-same-action pro-quickview">
@@ -60,7 +65,7 @@ const ProductGridListSingle = (props) => {
           </div>
           <div className="product-content text-center">
             <h3>
-              <Link to={"/product" + product._id}>{product.name}</Link>
+              {product.name}
             </h3>
             <div className="product-price">
               <span>PKR {product.price} </span>

@@ -28,8 +28,18 @@ export const getProducts = createAsyncThunk("products/get-products", async (data
   }
 });
 
+export const getSingleProduct = createAsyncThunk("product/get-single-product", async (data) => {
+  try {
+    const res = await axios.get(`/unauthrized/get-single-product/${data}`)
+    return res.data;
+  } catch (error) {
+    return error.response.data;
+  }
+});
+
 
 const initialState = {
+  product:{},
   products: [],
   productsCount: 0,
   categories: [],
@@ -65,6 +75,17 @@ const productSlice = createSlice({
     builder.addCase(getProducts.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message;
+    });
+    builder.addCase(getSingleProduct.pending,(state)=>{
+      state.isLoading=true;
+    });
+    builder.addCase(getSingleProduct.fulfilled,(state,action)=>{
+      state.isLoading=false;
+      state.product=action.payload.data;
+    });
+    builder.addCase(getSingleProduct.rejected,(state,action)=>{
+     state.isLoading=false;
+     state.error=action.error.message
     });
   },
 });

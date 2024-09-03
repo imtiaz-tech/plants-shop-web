@@ -27,7 +27,6 @@ const Cart = () => {
   const { addToast } = useToasts();
   let cartTotalPrice = 0;
   const { cart } = useSelector((state) => state.auth || {});
-  console.log("🚀 ~ Cart ~ cart:", cart);
   const [quantityCount] = useState(1);
 
   const incrementQuantity = (cart) => {
@@ -100,7 +99,7 @@ const Cart = () => {
                             return (
                               <tr key={key}>
                                 <td className="product-thumbnail">
-                                  <Link to={"/product/" + cart?.id}>
+                                  <Link to={"/product" }>
                                     <img className="img-fluid" src={cart.product?.image} alt="" />
                                   </Link>
                                 </td>
@@ -163,7 +162,7 @@ const Cart = () => {
                   <div className="col-lg-12">
                     <div className="cart-shiping-update-wrapper">
                       <div className="cart-shiping-update">
-                        <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>Continue Shopping</Link>
+                        <Link to={ "/shop-grid-standard"}>Continue Shopping</Link>
                       </div>
                       <div className="cart-clear">
                         {/* <button onClick={() => deleteAllFromCart(addToast)}>
@@ -267,7 +266,7 @@ const Cart = () => {
                     </div>
                     <div className="item-empty-area__text">
                       No items found in cart <br />{" "}
-                      <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>Shop Now</Link>
+                      <Link to={"/shop"}>Shop Now</Link>
                     </div>
                   </div>
                 </div>

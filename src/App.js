@@ -19,7 +19,7 @@ const About = lazy(() => import("./pages/other/About"));
 const Contact = lazy(() => import("./pages/other/Contact"));
 const MyAccount = lazy(() => import("./pages/other/MyAccount"));
 const Register = lazy(() => import("./pages/other/Register.js"));
-const Login =lazy (()=> import("./pages/other/Login.js"));
+const Login = lazy(() => import("./pages/other/Login.js"));
 const Cart = lazy(() => import("./pages/other/Cart"));
 const Wishlist = lazy(() => import("./pages/other/Wishlist"));
 const Compare = lazy(() => import("./pages/other/Compare"));
@@ -28,7 +28,6 @@ const Checkout = lazy(() => import("./pages/other/Checkout"));
 const NotFound = lazy(() => import("./pages/other/NotFound"));
 
 const App = () => {
-
   return (
     <ToastProvider placement="bottom-left">
       <BreadcrumbsProvider>
@@ -44,35 +43,24 @@ const App = () => {
             }
           >
             <Routes>
-              <Route  path="/" element={<Home/>} />
-
+              <Route path="/" element={<Home />} />
               Shop pages
-              <Route  path="/shop" element={<Shop/>} />
-
+              <Route path="/shop" element={<Shop />} />
               {/* Shop product pages */}
-              <Route
-                path="/product/:id"
-                render={(routeProps) => (
-                  <Product {...routeProps} key={routeProps.match.params.id} />
-                )}
-              />
-
+              <Route path="/product/:id" element={<Product />} />
               {/* Blog pages */}
-              <Route  path="/blog" element={<Blog/>} />
-
+              <Route path="/blog" element={<Blog />} />
               {/* Other pages */}
-              <Route  path="/about" element={<About/>} />
-              <Route  path="/contact" element={<Contact/>} />
-              <Route  path="/my-account" element={<MyAccount/>} />
-              <Route  path="/register" element={<Register/>} />
-              <Route  path="/login" element={<Login/>}/>
-              <Route  path="/cart" element={<Cart/>} />
-              <Route  path="/wishlist" element={<Wishlist/>} />
-              <Route  path="/compare" element={<Compare/>} />
-              <Route  path="/checkout" element={<Checkout/>} />
-
-              <Route path="/not-found" element={<NotFound/>} />
-
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/my-account" element={<MyAccount />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/wishlist" element={<Wishlist />} />
+              <Route path="/compare" element={<Compare />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/not-found" element={<NotFound />} />
               <Route exact component={NotFound} />
             </Routes>
           </Suspense>

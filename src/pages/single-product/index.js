@@ -1,16 +1,24 @@
-import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React, { Fragment,useEffect } from "react";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
-import { connect } from "react-redux";
 import Layout from "../../layout";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import RelatedProductSlider from "../../wrappers/product/RelatedProductSlider";
-import ProductDescriptionTab from "../../wrappers/product/ProductDescriptionTab";
 import ProductImageDescription from "../../wrappers/product/ProductImageDescription";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getSingleProduct } from "../../redux/products";
 
-const Product = ({ location, product }) => {
-  const { pathname } = location;
+const Product = () => {
+
+  const dispatch=useDispatch();
+  let params = useParams();
+  const { id } = params;
+  const { product } = useSelector((state) => state.products || {});
+
+  useEffect(() => {
+    dispatch(getSingleProduct(id));
+  }, [id]);
 
   return (
     <Fragment>
@@ -23,7 +31,7 @@ const Product = ({ location, product }) => {
       </MetaTags>
 
       <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
+      <BreadcrumbsItem to={"/shop"}>
         Shop Product
       </BreadcrumbsItem>
 
@@ -39,33 +47,19 @@ const Product = ({ location, product }) => {
         />
 
         {/* product description tab */}
-        <ProductDescriptionTab
+        {/* <ProductDescriptionTab
           spaceBottomClass="pb-90"
           productFullDesc={product.fullDescription}
-        />
+        /> */}
 
         {/* related product slider */}
-        <RelatedProductSlider
+        {/* <RelatedProductSlider
           spaceBottomClass="pb-95"
-          category={product.category[0]}
-        />
+          category={product?.category}
+        /> */}
       </Layout>
     </Fragment>
   );
 };
 
-Product.propTypes = {
-  location: PropTypes.object,
-  product: PropTypes.object
-};
-
-const mapStateToProps = (state, ownProps) => {
-  const itemId = ownProps.match.params.id;
-  return {
-    product: state.productData.products.filter(
-      single => single.id === itemId
-    )[0]
-  };
-};
-
-export default connect(mapStateToProps)(Product);
+export default Product;

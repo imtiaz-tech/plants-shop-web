@@ -1,10 +1,9 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState,useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import { getDiscountPrice } from "../../helpers/product";
 import Rating from "./sub-components/ProductRating";
 import ProductModal from "./ProductModal";
-
 const ProductGridSingle = ({
   product,
   currency,
@@ -19,9 +18,11 @@ const ProductGridSingle = ({
 }) => {
   const [modalShow, setModalShow] = useState(false);
   const { addToast } = useToasts();
+  const [quantityCount, setQuantityCount] = useState(1);
 
-  const discountedPrice = getDiscountPrice(product.price, product.discount);
-  const finalProductPrice = +(product.price * currency?.currencyRate).toFixed(
+    
+  const discountedPrice = getDiscountPrice(product?.price, product?.discount);
+  const finalProductPrice = +(product?.price * currency?.currencyRate).toFixed(
     2
   );
   const finalDiscountedPrice = +(
@@ -39,15 +40,15 @@ const ProductGridSingle = ({
           className={`product-wrap ${spaceBottomClass ? spaceBottomClass : ""}`}
         >
           <div className="product-img">
-            <Link to={"/product/" + product.id}>
+            {/* <Link to={"/product/" + product.id}>
               <img className="default-img" src={product.image[0]} alt="" />
               {product.image.length > 1 ? (
                 <img className="hover-img" src={product.image[1]} alt="" />
               ) : (
                 ""
               )}
-            </Link>
-            {product.discount || product.new ? (
+            </Link> */}
+            {/* {product.discount || product.new ? (
               <div className="product-img-badges">
                 {product.discount ? (
                   <span className="pink">-{product.discount}%</span>
@@ -58,11 +59,11 @@ const ProductGridSingle = ({
               </div>
             ) : (
               ""
-            )}
+            )} */}
 
             <div className="product-action">
               <div className="pro-same-action pro-wishlist">
-                <button
+                {/* <button
                   className={wishlistItem !== undefined ? "active" : ""}
                   disabled={wishlistItem !== undefined}
                   title={
@@ -73,7 +74,7 @@ const ProductGridSingle = ({
                   onClick={() => addToWishlist(product, addToast)}
                 >
                   <i className="pe-7s-like" />
-                </button>
+                </button> */}
               </div>
               <div className="pro-same-action pro-cart">
                 {product.affiliateLink ? (
@@ -85,13 +86,13 @@ const ProductGridSingle = ({
                     {" "}
                     Buy now{" "}
                   </a>
-                ) : product.variation && product.variation.length >= 1 ? (
+                ) : product?.variation && product?.variation.length >= 1 ? (
                   <Link to={`${process.env.PUBLIC_URL}/product/${product.id}`}>
                     Select Option
                   </Link>
-                ) : product.stock && product.stock > 0 ? (
+                ) : product?.stock && product?.stock > 0 ? (
                   <button
-                    onClick={() => addToCart(product, addToast)}
+                    onClick={() =>  addToCart(product, addToast)}
                     className={
                       cartItem !== undefined && cartItem.quantity > 0
                         ? "active"
@@ -125,7 +126,7 @@ const ProductGridSingle = ({
             <h3>
               <Link to={"/product/" + product.id}>{product.name}</Link>
             </h3>
-            {product.rating && product.rating > 0 ? (
+            {product?.rating && product?.rating > 0 ? (
               <div className="product-rating">
                 <Rating ratingValue={product.rating} />
               </div>
@@ -149,6 +150,8 @@ const ProductGridSingle = ({
       </div>
       {/* product modal */}
       <ProductModal
+      quantityCount={quantityCount}
+      setQuantityCount={setQuantityCount}
         show={modalShow}
         onHide={() => setModalShow(false)}
         product={product}
