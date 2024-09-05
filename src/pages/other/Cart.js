@@ -1,20 +1,21 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { removeFromCart, updateCartQuantity } from "../../redux/authUser";
+import { removeFromCart, updateCartQuantity,clearCart } from "../../redux/authUser";
 import Layout from "../../layout";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+import { useNavigate } from "react-router-dom";
+
 
 const Cart = () => {
   const dispatch = useDispatch();
-
+  const navigate=useNavigate()
   const { addToast } = useToasts();
   const { cart } = useSelector((state) => state.auth || {});
-  const [quantityCount] = useState(1);
 
   const incrementQuantity = (cart) => {
     if (cart.quantityCount < cart.product.quantity) {
@@ -22,9 +23,9 @@ const Cart = () => {
         updateCartQuantity({
           productId: cart.product?._id,
           quantity: cart.quantityCount + 1,
-          addToast: addToast("added to cart", { appearance: "success" }),
         })
       );
+      addToast("Added To Cart", { appearance: "success" });
     }
   };
 
@@ -34,11 +35,17 @@ const Cart = () => {
         updateCartQuantity({
           productId: cart.product?._id,
           quantity: cart.quantityCount - 1,
-          addToast: addToast("removed to cart", { appearance: "success" }),
         })
       );
+      addToast("Product Decrement From Cart", { appearance: "success" });
     }
   };
+
+  const clearAllCart=()=>{
+    addToast("cleared all cart", { appearance: "success" });
+    dispatch(clearCart());
+    navigate("/shop")
+  }
 
   const totalPrice = cart?.reduce((totalProducts, cartItem) => {
     return (totalProducts += cartItem.product?.price * cartItem.quantityCount);
@@ -136,11 +143,11 @@ const Cart = () => {
                       <div className="cart-shiping-update">
                         <Link to={"/shop"}>Continue Shopping</Link>
                       </div>
-                      {/* <div className="cart-clear">
-                        <button onClick={() => deleteAllFromCart(addToast)}>
+                      <div className="cart-clear">
+                        <button onClick={() => clearAllCart()}>
                           Clear Shopping Cart
                         </button>
-                      </div> */}
+                      </div>
                     </div>
                   </div>
                 </div>

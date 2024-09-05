@@ -22,7 +22,7 @@ const ProductGridListSingle = (props) => {
       id: product._id,
     };
     dispatch(addToCart(data));
-    addToast(`${product.name} Added to cart`, { appearance: "success" });
+    addToast("Added To Cart", { appearance: "success" });
 
   };
 
@@ -65,6 +65,7 @@ const ProductGridListSingle = (props) => {
         quantityCount={quantityCount}
         setQuantityCount={setQuantityCount}
         addtoast={addToast}
+        setModalShow={setModalShow}
       />
     </Fragment>
   );

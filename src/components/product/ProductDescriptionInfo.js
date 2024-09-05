@@ -3,15 +3,17 @@ import { getProductCartQuantity } from "../../helpers/product";
 import { useDispatch,useSelector } from "react-redux";
 import { addToCart } from "../../redux/authUser";
 import { useToasts } from "react-toast-notifications";
+import { useNavigate } from "react-router-dom";
 
 const ProductDescriptionInfo = (props) => {
   const { product, cartItems } = props;
   const dispatch = useDispatch();
+  const navigate=useNavigate();
   const [quantityCount, setQuantityCount] = useState(1);
   const { addToast } = useToasts();
 
   const productCartQty = getProductCartQuantity(cartItems, product);
-  
+
   const { cart } = useSelector((state) => state.auth || {});
   const singleProduct = cart?.find((item) => item.id == product._id);
 
@@ -23,7 +25,8 @@ const ProductDescriptionInfo = (props) => {
       id: product._id,
     };
     dispatch(addToCart(data));
-    addToast(`${product.name} added to cart`, { appearance: "success" });
+    addToast("Added To Cart", { appearance: "success" });
+    navigate("/shop")
   };
 
   return (

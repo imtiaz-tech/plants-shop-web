@@ -6,6 +6,10 @@ import Layout from "../../layout";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useSelector, useDispatch } from "react-redux";
 import { addOrder } from "../../redux/products";
+import { clearCart } from "../../redux/authUser";
+import { useNavigate } from "react-router-dom";
+import { useToasts } from "react-toast-notifications";
+
 
 const Checkout = () => {
   const [firstName, setFirstName] = useState("");
@@ -20,6 +24,9 @@ const Checkout = () => {
   const [email, setEmail] = useState("");
   const [notes, setNotes] = useState("");
 
+  const { addToast } = useToasts();
+
+  const navigate=useNavigate()
   const dispatch = useDispatch();
   const { cart } = useSelector((state) => state.auth || {});
 
@@ -47,7 +54,11 @@ const Checkout = () => {
       notes,
       cart: mapCart,
     };
-    dispatch(addOrder(data));
+    addToast("Add Order Successfully", { appearance: "success" });
+    dispatch(addOrder(data)).then(() => {
+      dispatch(clearCart());
+    });
+    navigate("/shop")
   };
 
   return (

@@ -37,6 +37,9 @@ const authSlice = createSlice({
     addToCart(state, action) {
       state.cart = [...state.cart, action.payload];
     },
+    clearCart(state, action) {
+      state.cart = [];
+    },
     removeFromCart(state, action) {
       const productId = action.payload;
       state.cart = state.cart.filter((product) => product.id !== productId);
@@ -76,6 +79,6 @@ const authSlice = createSlice({
     });
   },
 });
-export const { addToCart, removeFromCart, updateCartQuantity } = authSlice.actions;
+export const { addToCart, removeFromCart, updateCartQuantity,clearCart } = authSlice.actions;
 
 export default authSlice.reducer;

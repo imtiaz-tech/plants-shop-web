@@ -6,7 +6,7 @@ import { useDispatch,useSelector } from "react-redux";
 import { useToasts } from "react-toast-notifications";
 
 function ProductModal(props) {
-  const { product, setQuantityCount, quantityCount } = props;
+  const { product, setQuantityCount, quantityCount ,setModalShow} = props;
 
   const dispatch = useDispatch();
   const { addToast } = useToasts();
@@ -20,10 +20,10 @@ function ProductModal(props) {
       quantityCount,
       id: product._id,
     };
+    addToast("Added To Cart", { appearance: "success" });
     dispatch(addToCart(data));
-    addToast(`${product.name} Added to cart`, { appearance: "success" });
+    setModalShow(false);
   };
-
   const productCartQty = getProductCartQuantity(cart, product);
 
   return (
