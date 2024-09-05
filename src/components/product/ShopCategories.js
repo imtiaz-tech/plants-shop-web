@@ -57,9 +57,5 @@ const ShopCategories = (props) => {
   );
 };
 
-ShopCategories.propTypes = {
-  categories: PropTypes.array,
-  getSortParams: PropTypes.func,
-};
 
 export default ShopCategories;

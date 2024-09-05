@@ -18,7 +18,7 @@ const Contact = ({ location }) => {
         />
       </MetaTags>
       <BreadcrumbsItem to={'/'}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={"/"}>
+      <BreadcrumbsItem to={"/contact-us"}>
         Contact
       </BreadcrumbsItem>
       <Layout headerTop="visible">

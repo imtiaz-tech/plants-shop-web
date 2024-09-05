@@ -20,7 +20,7 @@ const BlogStandard = () => {
         />
       </MetaTags>
       <BreadcrumbsItem to={"/"}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={"/"}>
+      <BreadcrumbsItem to={"/blog"}>
         Blog
       </BreadcrumbsItem>
       <Layout headerTop="visible">

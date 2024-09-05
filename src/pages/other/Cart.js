@@ -57,7 +57,7 @@ const Cart = () => {
       </MetaTags>
 
       <BreadcrumbsItem to={"/"}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={"/"}>Cart</BreadcrumbsItem>
+      <BreadcrumbsItem to={"/cart"}>Cart</BreadcrumbsItem>
 
       <Layout headerTop="visible">
         {/* breadcrumb */}
@@ -82,9 +82,9 @@ const Cart = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {cart.map((cart, key) => {
+                          {cart.map((cart) => {
                             return (
-                              <tr key={key}>
+                              <tr key={cart.id}>
                                 <td className="product-thumbnail">
                                   <Link to={"/product"}>
                                     <img className="img-fluid" src={cart.product?.image} alt="" />
@@ -134,13 +134,13 @@ const Cart = () => {
                   <div className="col-lg-12">
                     <div className="cart-shiping-update-wrapper">
                       <div className="cart-shiping-update">
-                        <Link to={"/shop-grid-standard"}>Continue Shopping</Link>
+                        <Link to={"/shop"}>Continue Shopping</Link>
                       </div>
-                      <div className="cart-clear">
-                        {/* <button onClick={() => deleteAllFromCart(addToast)}>
+                      {/* <div className="cart-clear">
+                        <button onClick={() => deleteAllFromCart(addToast)}>
                           Clear Shopping Cart
-                        </button> */}
-                      </div>
+                        </button>
+                      </div> */}
                     </div>
                   </div>
                 </div>

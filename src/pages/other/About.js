@@ -23,7 +23,7 @@ const About = ({ location }) => {
         />
       </MetaTags>
       <BreadcrumbsItem to={'/'}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={"/"}>
+      <BreadcrumbsItem to={"/about-us"}>
         About us
       </BreadcrumbsItem>
       <Layout headerTop="visible">

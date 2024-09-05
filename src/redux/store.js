@@ -12,7 +12,7 @@ import {
     REGISTER,
   } from "redux-persist";
   import storage from "redux-persist/lib/storage";
-import logger from 'redux-logger'
+  import logger from 'redux-logger'
 
 const persistConfig = {
   key: "auth",

@@ -1,32 +1,63 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import Layout from "../../layout";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
+import { addOrder } from "../../redux/products";
 
 const Checkout = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLaststName] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [address, setAddress] = useState("");
+  const [apartmentAddress, setApartmentAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [postCode, setPostcode] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [notes, setNotes] = useState("");
+
+  const dispatch = useDispatch();
   const { cart } = useSelector((state) => state.auth || {});
 
   const totalPrice = cart?.reduce((totalProducts, cartItem) => {
     return (totalProducts += cartItem.product?.price * cartItem.quantityCount);
   }, 0);
 
+  const saveOrder = () => {
+    const mapCart = cart.map((product) => ({
+      productId: product.id,
+      quantity: product.quantityCount,
+      unitPrice: product.product.price,
+    }));
+    const data = {
+      firstName,
+      lastName,
+      companyName,
+      address,
+      apartmentAddress,
+      city,
+      state,
+      postCode,
+      phoneNumber,
+      email,
+      notes,
+      cart: mapCart,
+    };
+    dispatch(addOrder(data));
+  };
+
   return (
     <Fragment>
       <MetaTags>
         <title>Flone | Checkout</title>
-        <meta
-          name="description"
-          content="Checkout page of flone react minimalist eCommerce template."
-        />
+        <meta name="description" content="Checkout page of flone react minimalist eCommerce template." />
       </MetaTags>
-      <BreadcrumbsItem to={'/'}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={"/"}>
-        Checkout
-      </BreadcrumbsItem>
+      <BreadcrumbsItem to={"/"}>Home</BreadcrumbsItem>
+      <BreadcrumbsItem to={"/checkout"}>Checkout</BreadcrumbsItem>
       <Layout headerTop="visible">
         {/* breadcrumb */}
         <Breadcrumb />
@@ -41,19 +72,34 @@ const Checkout = () => {
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
                           <label>First Name</label>
-                          <input type="text" />
+                          <input
+                            type="text"
+                            name="firstName"
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
+                          />
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
                           <label>Last Name</label>
-                          <input type="text" />
+                          <input
+                            type="text"
+                            name="lastName"
+                            value={lastName}
+                            onChange={(e) => setLaststName(e.target.value)}
+                          />
                         </div>
                       </div>
                       <div className="col-lg-12">
                         <div className="billing-info mb-20">
                           <label>Company Name</label>
-                          <input type="text" />
+                          <input
+                            type="text"
+                            name="companyName"
+                            value={companyName}
+                            onChange={(e) => setCompanyName(e.target.value)}
+                          />
                         </div>
                       </div>
                       <div className="col-lg-12">
@@ -61,11 +107,11 @@ const Checkout = () => {
                           <label>Country</label>
                           <select>
                             <option>Select a country</option>
-                            <option>Azerbaijan</option>
+                            {/* <option>Azerbaijan</option>
                             <option>Bahamas</option>
                             <option>Bahrain</option>
-                            <option>Bangladesh</option>
-                            <option>Barbados</option>
+                            <option>Bangladesh</option> */}
+                            <option>Pakistan</option>
                           </select>
                         </div>
                       </div>
@@ -76,41 +122,47 @@ const Checkout = () => {
                             className="billing-address"
                             placeholder="House number and street name"
                             type="text"
+                            name="address"
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
                           />
                           <input
-                            placeholder="Apartment, suite, unit etc."
+                            placeholder="Apartment address"
                             type="text"
+                            name="apartmentAddress"
+                            value={apartmentAddress}
+                            onChange={(e) => setApartmentAddress(e.target.value)}
                           />
                         </div>
                       </div>
                       <div className="col-lg-12">
                         <div className="billing-info mb-20">
                           <label>Town / City</label>
-                          <input type="text" />
+                          <input type="text" value={city} onChange={(e) => setCity(e.target.value)} />
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
-                          <label>State / County</label>
-                          <input type="text" />
+                          <label>State / Province</label>
+                          <input type="text" value={state} onChange={(e) => setState(e.target.value)} />
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
                           <label>Postcode / ZIP</label>
-                          <input type="text" />
+                          <input type="text" value={postCode} onChange={(e) => setPostcode(e.target.value)} />
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
                           <label>Phone</label>
-                          <input type="text" />
+                          <input type="number" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
                           <label>Email Address</label>
-                          <input type="text" />
+                          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                         </div>
                       </div>
                     </div>
@@ -122,7 +174,8 @@ const Checkout = () => {
                         <textarea
                           placeholder="Notes about your order, e.g. special notes for delivery. "
                           name="message"
-                          defaultValue={""}
+                          value={notes}
+                          onChange={(e) => setNotes(e.target.value)}
                         />
                       </div>
                     </div>
@@ -148,9 +201,7 @@ const Checkout = () => {
                                   <span className="order-middle-left">
                                     {cart.product.name} X {cart.quantityCount}
                                   </span>{" "}
-                                  <span className="order-price">
-                                    {totalPrice}
-                                  </span>
+                                  <span className="order-price">{cart.product.price}</span>
                                 </li>
                               );
                             })}
@@ -165,16 +216,16 @@ const Checkout = () => {
                         <div className="your-order-total">
                           <ul>
                             <li className="order-total">Total</li>
-                            <li>
-                              {totalPrice}
-                            </li>
+                            <li>{totalPrice}</li>
                           </ul>
                         </div>
                       </div>
                       <div className="payment-method"></div>
                     </div>
                     <div className="place-order mt-25">
-                      <button className="btn-hover">Place Order</button>
+                      <button className="btn-hover" onClick={saveOrder}>
+                        Place Order
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -187,10 +238,7 @@ const Checkout = () => {
                       <i className="pe-7s-cash"></i>
                     </div>
                     <div className="item-empty-area__text">
-                      No items found in cart to checkout <br />{" "}
-                      <Link to={ "/shop-grid-standard"}>
-                        Shop Now
-                      </Link>
+                      No items found in cart to checkout <br /> <Link to={"/shop"}>Shop Now</Link>
                     </div>
                   </div>
                 </div>
@@ -202,6 +250,5 @@ const Checkout = () => {
     </Fragment>
   );
 };
-
 
 export default Checkout;

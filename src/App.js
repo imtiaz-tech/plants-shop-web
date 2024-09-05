@@ -21,8 +21,6 @@ const MyAccount = lazy(() => import("./pages/other/MyAccount"));
 const Register = lazy(() => import("./pages/other/Register.js"));
 const Login = lazy(() => import("./pages/other/Login.js"));
 const Cart = lazy(() => import("./pages/other/Cart"));
-const Wishlist = lazy(() => import("./pages/other/Wishlist"));
-const Compare = lazy(() => import("./pages/other/Compare"));
 const Checkout = lazy(() => import("./pages/other/Checkout"));
 
 const NotFound = lazy(() => import("./pages/other/NotFound"));
@@ -57,8 +55,6 @@ const App = () => {
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
               <Route path="/cart" element={<Cart />} />
-              <Route path="/wishlist" element={<Wishlist />} />
-              <Route path="/compare" element={<Compare />} />
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/not-found" element={<NotFound />} />
               <Route exact component={NotFound} />

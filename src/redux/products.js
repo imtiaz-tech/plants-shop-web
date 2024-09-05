@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../config/axios";
-import uuid from "uuid/v4";
 
 export const getCategories = createAsyncThunk("products/get-categories", async () => {
   try {
@@ -37,8 +36,23 @@ export const getSingleProduct = createAsyncThunk("product/get-single-product", a
   }
 });
 
+export const addOrder = createAsyncThunk("products/add-order", async (data, { getState }) => {
+  try {
+    const { token } = getState().auth;
+    const res = await axios.post("/orders/add-order", data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data;
+  } catch (error) {
+    return error.response.data;
+  }
+});
+
 
 const initialState = {
+  order:[],
   product:{},
   products: [],
   productsCount: 0,
@@ -87,6 +101,17 @@ const productSlice = createSlice({
      state.isLoading=false;
      state.error=action.error.message
     });
+    builder.addCase(addOrder.pending,(state) =>{
+      state.isLoading=true;
+    });
+    builder.addCase(addOrder.fulfilled,(state,action) =>{
+      state.isLoading=false;
+      state.order=action.payload.data;
+    });
+    builder.addCase(addOrder.rejected,(state,action) => {
+      state.isLoading=false;
+      state.error=action.error.message;
+    })
   },
 });
 export default productSlice.reducer;

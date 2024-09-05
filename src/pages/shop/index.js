@@ -54,7 +54,7 @@ const ShopGridStandard = () => {
       </MetaTags>
 
       <BreadcrumbsItem to={"/"}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={"/"}>Shop</BreadcrumbsItem>
+      <BreadcrumbsItem to={"/shop"}>Shop</BreadcrumbsItem>
 
       <Layout headerTop="visible">
         {/* breadcrumb */}

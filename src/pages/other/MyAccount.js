@@ -19,7 +19,7 @@ const MyAccount = ({ location }) => {
         />
       </MetaTags>
       <BreadcrumbsItem to={'/'}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={"/"}>
+      <BreadcrumbsItem to={"/my-account"}>
         My Account
       </BreadcrumbsItem>
       <Layout headerTop="visible">

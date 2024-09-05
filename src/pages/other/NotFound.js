@@ -18,9 +18,6 @@ const NotFound = ({ location }) => {
         />
       </MetaTags>
       <BreadcrumbsItem to={'/'}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={"/"}>
-        404 page
-      </BreadcrumbsItem>
       <Layout headerTop="visible">
         {/* breadcrumb */}
         <Breadcrumb />

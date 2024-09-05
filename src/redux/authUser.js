@@ -3,6 +3,7 @@ import axios from "../config/axios";
 
 const initialState = {
   user: {},
+  token: "",
   isloading: false,
   error: null,
   cart: [],
@@ -54,6 +55,7 @@ const authSlice = createSlice({
     });
     builder.addCase(signup.fulfilled, (state, action) => {
       state.isloading = false;
+      state.token = action.payload.data.token.token;
       state.user = action.payload.data;
     });
     builder.addCase(signup.rejected, (state, action) => {
@@ -65,6 +67,7 @@ const authSlice = createSlice({
     });
     builder.addCase(login.fulfilled, (state, action) => {
       state.isloading = false;
+      state.token = action.payload.data.token.token;
       state.user = action.payload.data;
     });
     builder.addCase(login.rejected, (state, action) => {

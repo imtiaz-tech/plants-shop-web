@@ -32,7 +32,7 @@ const Compare = ({
         />
       </MetaTags>
       <BreadcrumbsItem to={'/'}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={"/"}>
+      <BreadcrumbsItem to={"/compare"}>
         Compare
       </BreadcrumbsItem>
       <Layout headerTop="visible">

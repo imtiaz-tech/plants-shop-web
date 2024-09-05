@@ -37,7 +37,7 @@ const Wishlist = ({
       </MetaTags>
 
       <BreadcrumbsItem to={'/'}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={"/"}>
+      <BreadcrumbsItem to={"/wishlist"}>
         Wishlist
       </BreadcrumbsItem>
 
