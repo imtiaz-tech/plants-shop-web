@@ -17,7 +17,7 @@ const MenuCart = () => {
 
   const productRemoveFromCart = (_id) => {
     dispatch(removeFromCart(_id));
-    addToast("Removed to cart", { appearance: "success" });
+    addToast("Removed to cart", { appearance: "success",autoDismiss: true });
   };
 
   return (

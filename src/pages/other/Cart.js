@@ -25,7 +25,7 @@ const Cart = () => {
           quantity: cart.quantityCount + 1,
         })
       );
-      addToast("Added To Cart", { appearance: "success" });
+      addToast("Added To Cart", { appearance: "success",autoDismiss: true });
     }
   };
 
@@ -37,12 +37,12 @@ const Cart = () => {
           quantity: cart.quantityCount - 1,
         })
       );
-      addToast("Product Decrement From Cart", { appearance: "success" });
+      addToast("Product Decrement From Cart", { appearance: "success",autoDismiss: true });
     }
   };
 
   const clearAllCart=()=>{
-    addToast("cleared all cart", { appearance: "success" });
+    addToast("cleared all cart", { appearance: "success",autoDismiss: true });
     dispatch(clearCart());
     navigate("/shop")
   }
@@ -52,7 +52,7 @@ const Cart = () => {
   }, 0);
 
   const productRemoveFromCart = (_id) => {
-    addToast("Removed to cart", { appearance: "success" });
+    addToast("Removed to cart", { appearance: "success",autoDismiss: true });
     dispatch(removeFromCart(_id));
   };
 

@@ -262,6 +262,12 @@
       }
     }
   }
+  .danger-text {
+    color: red;
+    font-style: italic;
+    padding: 0px;
+    margin: 0px 0px 10px 0px;
+  }
   .place-order > a,
   .place-order > button {
     font-weight: 500;

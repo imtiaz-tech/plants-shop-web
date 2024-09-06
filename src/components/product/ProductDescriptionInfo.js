@@ -25,7 +25,7 @@ const ProductDescriptionInfo = (props) => {
       id: product._id,
     };
     dispatch(addToCart(data));
-    addToast("Added To Cart", { appearance: "success" });
+    addToast("Added To Cart", { appearance: "success",autoDismiss: true });
     navigate("/shop")
   };
 

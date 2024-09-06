@@ -20,7 +20,7 @@ function ProductModal(props) {
       quantityCount,
       id: product._id,
     };
-    addToast("Added To Cart", { appearance: "success" });
+    addToast("Added To Cart", { appearance: "success", autoDismiss: true });
     dispatch(addToCart(data));
     setModalShow(false);
   };

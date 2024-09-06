@@ -9,12 +9,11 @@ import { addOrder } from "../../redux/products";
 import { clearCart } from "../../redux/authUser";
 import { useNavigate } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
-
+import OverlayLoading from "../../components/loading/overlayLoading";
 
 const Checkout = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLaststName] = useState("");
-  const [companyName, setCompanyName] = useState("");
   const [address, setAddress] = useState("");
   const [apartmentAddress, setApartmentAddress] = useState("");
   const [city, setCity] = useState("");
@@ -23,9 +22,21 @@ const Checkout = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [notes, setNotes] = useState("");
+  const [errorText, setErrorText] = useState("");
+
+  const {  isLoadingOrder } = useSelector((state) => state.products || {});
 
   const { addToast } = useToasts();
 
+  function validateEmail(emailField) {
+    var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+    if (reg.test(emailField) == false) {
+      return false;
+    }
+    return true;
+  }
+  
   const navigate=useNavigate()
   const dispatch = useDispatch();
   const { cart } = useSelector((state) => state.auth || {});
@@ -35,15 +46,38 @@ const Checkout = () => {
   }, 0);
 
   const saveOrder = () => {
+    const isvalid = validateEmail(email);
     const mapCart = cart.map((product) => ({
       productId: product.id,
       quantity: product.quantityCount,
       unitPrice: product.product.price,
     }));
+    if(firstName === ""){
+      setErrorText("firstName is required")
+    }else if(lastName === ""){
+      setErrorText("lastName is required")
+    }else if(address === ""){
+      setErrorText("address is required")
+    }else if (apartmentAddress === ""){
+      setErrorText("apartmentAddress is required")
+    }else if(city === ""){
+      setErrorText("city is required")
+    }else if(state === ""){
+      setErrorText("state is required")
+    }else if(postCode === ""){
+      setErrorText("postCode is required")
+    }else if(phoneNumber === ""){
+      setErrorText("phoneNumber is required")
+    }else if (email === ""){
+      setErrorText("email is required")
+    }else if(!isvalid){
+      setErrorText("email is not valid");
+      return;
+    }
+    else {
     const data = {
       firstName,
       lastName,
-      companyName,
       address,
       apartmentAddress,
       city,
@@ -54,15 +88,16 @@ const Checkout = () => {
       notes,
       cart: mapCart,
     };
-    addToast("Add Order Successfully", { appearance: "success" });
+    addToast("Add Order Successfully", { appearance: "success", autoDismiss: true  });
     dispatch(addOrder(data)).then(() => {
       dispatch(clearCart());
     });
-    navigate("/shop")
+    navigate("/shop")}
   };
 
   return (
     <Fragment>
+      <OverlayLoading show={isLoadingOrder} />
       <MetaTags>
         <title>Flone | Checkout</title>
         <meta name="description" content="Checkout page of flone react minimalist eCommerce template." />
@@ -103,25 +138,12 @@ const Checkout = () => {
                         </div>
                       </div>
                       <div className="col-lg-12">
-                        <div className="billing-info mb-20">
-                          <label>Company Name</label>
-                          <input
-                            type="text"
-                            name="companyName"
-                            value={companyName}
-                            onChange={(e) => setCompanyName(e.target.value)}
-                          />
-                        </div>
                       </div>
                       <div className="col-lg-12">
                         <div className="billing-select mb-20">
                           <label>Country</label>
                           <select>
                             <option>Select a country</option>
-                            {/* <option>Azerbaijan</option>
-                            <option>Bahamas</option>
-                            <option>Bahrain</option>
-                            <option>Bangladesh</option> */}
                             <option>Pakistan</option>
                           </select>
                         </div>
@@ -233,6 +255,9 @@ const Checkout = () => {
                       </div>
                       <div className="payment-method"></div>
                     </div>
+                    {/* {errorText && (
+                            <p className="danger-text">{errorText}</p>
+                          )} */}
                     <div className="place-order mt-25">
                       <button className="btn-hover" onClick={saveOrder}>
                         Place Order
