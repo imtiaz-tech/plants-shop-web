@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
@@ -12,6 +12,14 @@ import { useToasts } from "react-toast-notifications";
 import OverlayLoading from "../../components/loading/overlayLoading";
 
 const Checkout = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { addToast } = useToasts();
+
+  const { isLoadingOrder } = useSelector((state) => state.products || {});
+  const { cart, token } = useSelector((state) => state.auth || {});
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLaststName] = useState("");
   const [address, setAddress] = useState("");
@@ -24,9 +32,16 @@ const Checkout = () => {
   const [notes, setNotes] = useState("");
   const [errorText, setErrorText] = useState("");
 
-  const {  isLoadingOrder } = useSelector((state) => state.products || {});
+  const totalPrice = cart?.reduce((totalProducts, cartItem) => {
+    return (totalProducts += cartItem.product?.price * cartItem.quantityCount);
+  }, 0);
 
-  const { addToast } = useToasts();
+  useEffect(() => {
+    if (!token) {
+      navigate("/login?redirect-url=/checkout");
+      addToast("Please login to continue!", { appearance: "warning", autoDismiss: true });
+    }
+  }, []);
 
   function validateEmail(emailField) {
     var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
@@ -36,14 +51,6 @@ const Checkout = () => {
     }
     return true;
   }
-  
-  const navigate=useNavigate()
-  const dispatch = useDispatch();
-  const { cart } = useSelector((state) => state.auth || {});
-
-  const totalPrice = cart?.reduce((totalProducts, cartItem) => {
-    return (totalProducts += cartItem.product?.price * cartItem.quantityCount);
-  }, 0);
 
   const saveOrder = () => {
     const isvalid = validateEmail(email);
@@ -52,47 +59,47 @@ const Checkout = () => {
       quantity: product.quantityCount,
       unitPrice: product.product.price,
     }));
-    if(firstName === ""){
-      setErrorText("firstName is required")
-    }else if(lastName === ""){
-      setErrorText("lastName is required")
-    }else if(address === ""){
-      setErrorText("address is required")
-    }else if (apartmentAddress === ""){
-      setErrorText("apartmentAddress is required")
-    }else if(city === ""){
-      setErrorText("city is required")
-    }else if(state === ""){
-      setErrorText("state is required")
-    }else if(postCode === ""){
-      setErrorText("postCode is required")
-    }else if(phoneNumber === ""){
-      setErrorText("phoneNumber is required")
-    }else if (email === ""){
-      setErrorText("email is required")
-    }else if(!isvalid){
+    if (firstName === "") {
+      setErrorText("firstName is required");
+    } else if (lastName === "") {
+      setErrorText("lastName is required");
+    } else if (address === "") {
+      setErrorText("address is required");
+    } else if (apartmentAddress === "") {
+      setErrorText("apartmentAddress is required");
+    } else if (city === "") {
+      setErrorText("city is required");
+    } else if (state === "") {
+      setErrorText("state is required");
+    } else if (postCode === "") {
+      setErrorText("postCode is required");
+    } else if (phoneNumber === "") {
+      setErrorText("phoneNumber is required");
+    } else if (email === "") {
+      setErrorText("email is required");
+    } else if (!isvalid) {
       setErrorText("email is not valid");
       return;
+    } else {
+      const data = {
+        firstName,
+        lastName,
+        address,
+        apartmentAddress,
+        city,
+        state,
+        postCode,
+        phoneNumber,
+        email,
+        notes,
+        cart: mapCart,
+      };
+      addToast("Add Order Successfully", { appearance: "success", autoDismiss: true });
+      dispatch(addOrder(data)).then(() => {
+        dispatch(clearCart());
+      });
+      navigate("/shop");
     }
-    else {
-    const data = {
-      firstName,
-      lastName,
-      address,
-      apartmentAddress,
-      city,
-      state,
-      postCode,
-      phoneNumber,
-      email,
-      notes,
-      cart: mapCart,
-    };
-    addToast("Add Order Successfully", { appearance: "success", autoDismiss: true  });
-    dispatch(addOrder(data)).then(() => {
-      dispatch(clearCart());
-    });
-    navigate("/shop")}
   };
 
   return (
@@ -137,8 +144,7 @@ const Checkout = () => {
                           />
                         </div>
                       </div>
-                      <div className="col-lg-12">
-                      </div>
+                      <div className="col-lg-12"></div>
                       <div className="col-lg-12">
                         <div className="billing-select mb-20">
                           <label>Country</label>

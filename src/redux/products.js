@@ -1,16 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../config/axios";
 
-export const getCategories = createAsyncThunk("products/get-categories", async () => {
+export const getCategories = createAsyncThunk("products/get-categories", async (res,{ rejectWithValue }) => {
   try {
     const res = await axios.get("/unauthrized/get-categories");
     return res.data;
   } catch (error) {
-    return error.response.data;
+    return rejectWithValue(error.response.data);
   }
 });
 
-export const getProducts = createAsyncThunk("products/get-products", async (data) => {
+export const getProducts = createAsyncThunk("products/get-products", async (data,{ rejectWithValue }) => {
   try {
     const res = await axios.get("/unauthrized/get-products", {
       params: {
@@ -23,20 +23,20 @@ export const getProducts = createAsyncThunk("products/get-products", async (data
     });
     return res.data;
   } catch (error) {
-    return error.response.data;
+    return rejectWithValue(error.response.data);
   }
 });
 
-export const getSingleProduct = createAsyncThunk("product/get-single-product", async (data) => {
+export const getSingleProduct = createAsyncThunk("product/get-single-product", async (data,{ rejectWithValue }) => {
   try {
     const res = await axios.get(`/unauthrized/get-single-product/${data}`)
     return res.data;
   } catch (error) {
-    return error.response.data;
+    return rejectWithValue(error.response.data);
   }
 });
 
-export const addOrder = createAsyncThunk("products/add-order", async (data, { getState }) => {
+export const addOrder = createAsyncThunk("products/add-order", async (data, { getState,rejectWithValue }) => {
   try {
     const { token } = getState().auth;
     const res = await axios.post("/orders/add-order", data, {
@@ -46,7 +46,7 @@ export const addOrder = createAsyncThunk("products/add-order", async (data, { ge
     });
     return res.data;
   } catch (error) {
-    return error.response.data;
+    return rejectWithValue(error.response.data);
   }
 });
 
@@ -77,7 +77,7 @@ const productSlice = createSlice({
     });
     builder.addCase(getCategories.rejected, (state, action) => {
       state.isLoadingProducts = false;
-      state.error = action.error.message;
+      state.error = action.payload;
     });
     builder.addCase(getProducts.pending, (state) => {
       state.isLoadingProducts = true;
@@ -89,7 +89,7 @@ const productSlice = createSlice({
     });
     builder.addCase(getProducts.rejected, (state, action) => {
       state.isLoading = false;
-      state.error = action.error.message;
+      state.error = action.payload;
     });
     builder.addCase(getSingleProduct.pending,(state)=>{
       state.isLoading=true;
@@ -100,7 +100,7 @@ const productSlice = createSlice({
     });
     builder.addCase(getSingleProduct.rejected,(state,action)=>{
      state.isLoading=false;
-     state.error=action.error.message
+     state.error = action.payload;
     });
     builder.addCase(addOrder.pending,(state) =>{
       state.isLoading=true;
@@ -111,7 +111,7 @@ const productSlice = createSlice({
     });
     builder.addCase(addOrder.rejected,(state,action) => {
       state.isLoading=false;
-      state.error=action.error.message;
+      state.error = action.payload;
     })
   },
 });

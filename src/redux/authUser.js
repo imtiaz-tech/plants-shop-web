@@ -10,23 +10,23 @@ const initialState = {
   initialValue: 0,
 };
 
-export const signup = createAsyncThunk("auth/signup", async (signupData) => {
+export const signup = createAsyncThunk("auth/signup", async (signupData,{ rejectWithValue }) => {
   try {
     const res = await axios.post("/auth/signup", signupData);
     const data = await res.data;
     return data;
   } catch (error) {
-    return error.response.data;
+    return rejectWithValue(error.response.data);
   }
 });
 
-export const login = createAsyncThunk("auth/login", async (loginData) => {
+export const login = createAsyncThunk("auth/login", async (loginData, { rejectWithValue }) => {
   try {
     const res = await axios.post("/auth/signin", loginData);
     const data = await res.data;
     return data;
   } catch (error) {
-    return error.response.data;
+    return rejectWithValue(error.response.data);
   }
 });
 
@@ -34,6 +34,10 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    logout: (state, action) => {
+      state.user = null;
+      state.token = null;
+    },
     addToCart(state, action) {
       state.cart = [...state.cart, action.payload];
     },
@@ -58,27 +62,27 @@ const authSlice = createSlice({
     });
     builder.addCase(signup.fulfilled, (state, action) => {
       state.isloading = false;
-      state.token = action.payload.data.token.token;
+      state.token = action.payload.data?.token?.token;
       state.user = action.payload.data;
     });
     builder.addCase(signup.rejected, (state, action) => {
       state.isloading = false;
-      state.error = action.error.message;
+      state.error = action.payload;
     });
     builder.addCase(login.pending, (state) => {
       state.isloading = true;
     });
     builder.addCase(login.fulfilled, (state, action) => {
       state.isloading = false;
-      state.token = action.payload.data.token.token;
+      state.token = action.payload.data?.token?.token;
       state.user = action.payload.data;
     });
     builder.addCase(login.rejected, (state, action) => {
       state.isloading = false;
-      state.error = action.error.message;
+      state.error = action.payload;
     });
   },
 });
-export const { addToCart, removeFromCart, updateCartQuantity,clearCart } = authSlice.actions;
+export const { addToCart, removeFromCart, updateCartQuantity, clearCart, logout } = authSlice.actions;
 
 export default authSlice.reducer;
