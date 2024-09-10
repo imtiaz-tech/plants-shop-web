@@ -51,6 +51,11 @@ const Checkout = () => {
     }
     return true;
   }
+  // const mapCart = cart.map((product) => ({
+  //   productId: product.id,
+  //   quantity: product.quantityCount,
+  //   unitPrice: product.product.price,
+  // }));
 
   const saveOrder = () => {
     const isvalid = validateEmail(email);
@@ -261,9 +266,9 @@ const Checkout = () => {
                       </div>
                       <div className="payment-method"></div>
                     </div>
-                    {/* {errorText && (
+                    {errorText && (
                             <p className="danger-text">{errorText}</p>
-                          )} */}
+                          )}
                     <div className="place-order mt-25">
                       <button className="btn-hover" onClick={saveOrder}>
                         Place Order

@@ -52,7 +52,8 @@ const Register = () => {
             navigate("/shop");
           }
         } else {
-          addToast(payload, { appearance: "error", autoDismiss: true });
+          setErrorText(payload)
+          // addToast(payload, { appearance: "error", autoDismiss: true });
         }
       });
     }

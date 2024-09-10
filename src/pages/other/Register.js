@@ -7,8 +7,11 @@ import Layout from "../../layout";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useDispatch } from "react-redux";
 import { signup } from "../../redux/authUser";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
+
   const [name, setname] = useState("");
   const [password, setpassword] = useState("");
   const [email, setemail] = useState("");
@@ -47,7 +50,13 @@ const Register = () => {
     }
      else {
       const userData = { name, password, email };
-      dispatch(signup(userData));
+      dispatch(signup(userData)).then(({ payload }) => {
+        if (payload.success) {
+          navigate("/login");
+        } else {
+          setErrorText(payload.message)
+        }
+      });
     }
   };
 
