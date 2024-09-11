@@ -58,6 +58,7 @@ const initialState = {
   productsCount: 0,
   categories: [],
   isLoading: false,
+  isLoadingSingleProduct:false,
   isLoadingOrder:false,
   isLoadingProducts: false,
   error: null,
@@ -95,7 +96,7 @@ const productSlice = createSlice({
       state.isLoading=true;
     });
     builder.addCase(getSingleProduct.fulfilled,(state,action)=>{
-      state.isLoading=false;
+      state.isLoadingSingleProduct=false;
       state.product=action.payload.data;
     });
     builder.addCase(getSingleProduct.rejected,(state,action)=>{

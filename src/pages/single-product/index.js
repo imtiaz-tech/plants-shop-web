@@ -8,19 +8,22 @@ import ProductImageDescription from "../../wrappers/product/ProductImageDescript
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getSingleProduct } from "../../redux/products";
-
+import LoadingOverlay from "../../components/loading/overlayLoading";
 const Product = () => {
 
   const dispatch=useDispatch();
   let params = useParams();
   const { id } = params;
-  const { product } = useSelector((state) => state.products || {});
+  const { product,isLoadingSingleProduct } = useSelector((state) => state.products || {});
 
   useEffect(() => {
     dispatch(getSingleProduct(id));
   }, [id]);
 
-  return (
+  return isLoadingSingleProduct ? (
+  <LoadingOverlay/>
+  ) :
+  (
     <Fragment>
       <MetaTags>
         <title>Flone | Product Page</title>
