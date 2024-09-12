@@ -77,7 +77,7 @@ const productSlice = createSlice({
       state.categories = action.payload.data;
     });
     builder.addCase(getCategories.rejected, (state, action) => {
-      state.isLoadingProducts = false;
+      state.isLoading = false;
       state.error = action.payload;
     });
     builder.addCase(getProducts.pending, (state) => {
@@ -93,25 +93,25 @@ const productSlice = createSlice({
       state.error = action.payload;
     });
     builder.addCase(getSingleProduct.pending,(state)=>{
-      state.isLoading=true;
+      state.isLoadingSingleProduct=true;
     });
     builder.addCase(getSingleProduct.fulfilled,(state,action)=>{
       state.isLoadingSingleProduct=false;
       state.product=action.payload.data;
     });
     builder.addCase(getSingleProduct.rejected,(state,action)=>{
-     state.isLoading=false;
+     state.isLoadingSingleProduct=false;
      state.error = action.payload;
     });
     builder.addCase(addOrder.pending,(state) =>{
-      state.isLoading=true;
+      state.isLoadingOrder=true;
     });
     builder.addCase(addOrder.fulfilled,(state,action) =>{
       state.isLoadingOrder=false;
       state.order=action.payload.data;
     });
     builder.addCase(addOrder.rejected,(state,action) => {
-      state.isLoading=false;
+      state.isLoadingOrder=false;
       state.error = action.payload;
     })
   },
