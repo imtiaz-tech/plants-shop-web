@@ -3,7 +3,7 @@ import MetaTags from "react-meta-tags";
 import Layout from "../../layout";
 import HeroSliderFour from "../../wrappers/hero-slider/HeroSliderFour";
 import BannerFour from "../../wrappers/banner/BannerFour";
-import TabProduct from "../../wrappers/product/TabProduct";
+// import TabProduct from "../../wrappers/product/TabProduct";
 import FeatureIconThree from "../../wrappers/feature-icon/FeatureIconThree";
 import Newsletter from "../../wrappers/newsletter/Newsletter";
 
@@ -23,12 +23,12 @@ const HomePlants = () => {
         {/* banner */}
         <BannerFour />
         {/* tab product */}
-        <TabProduct
+        {/* <TabProduct
           spaceTopClass="pt-60"
           spaceBottomClass="pb-70"
           bgColorClass="bg-gray-2"
           category="plant"
-        />
+        /> */}
         {/* feature icon */}
         <FeatureIconThree
           bgColorClass="bg-gray-2"
