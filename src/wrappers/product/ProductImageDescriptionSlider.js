@@ -3,7 +3,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { useToasts } from "react-toast-notifications";
 import { getDiscountPrice } from "../../helpers/product";
-import ProductImageGallerySlider from "../../components/product/ProductImageGallerySlider";
+// import ProductImageGallerySlider from "../../components/product/ProductImageGallerySlider";
 import ProductDescriptionInfoSlider from "../../components/product/ProductDescriptionInfoSlider";
 
 const ProductImageDescription = ({
@@ -39,7 +39,7 @@ const ProductImageDescription = ({
         <div className="row">
           <div className="col-lg-12 mb-50">
             {/* product image gallery */}
-            <ProductImageGallerySlider product={product} />
+            {/* <ProductImageGallerySlider product={product} /> */}
           </div>
           <div className="col-lg-12 text-center">
             {/* product description info */}
