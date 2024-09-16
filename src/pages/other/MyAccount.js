@@ -1,27 +1,36 @@
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import Card from "react-bootstrap/Card";
 import Accordion from "react-bootstrap/Accordion";
 import Layout from "../../layout";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+import { useDispatch } from "react-redux";
+import { changeUserPassword } from "../../redux/authUser";
 
-const MyAccount = ({ location }) => {
+const MyAccount = () => {
+  const dispatch = useDispatch();
+
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+
+  const updatePassword = () => {
+    const data = {
+      password,
+    };
+    dispatch(changeUserPassword(data));
+  };
 
   return (
     <Fragment>
       <MetaTags>
         <title>Flone | My Account</title>
-        <meta
-          name="description"
-          content="Compare page of flone react minimalist eCommerce template."
-        />
+        <meta name="description" content="Compare page of flone react minimalist eCommerce template." />
       </MetaTags>
-      <BreadcrumbsItem to={'/'}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={"/my-account"}>
-        My Account
-      </BreadcrumbsItem>
+      <BreadcrumbsItem to={"/"}>Home</BreadcrumbsItem>
+      <BreadcrumbsItem to={"/my-account"}>My Account</BreadcrumbsItem>
       <Layout headerTop="visible">
         {/* breadcrumb */}
         <Breadcrumb />
@@ -106,19 +115,33 @@ const MyAccount = ({ location }) => {
                               <div className="col-lg-12 col-md-12">
                                 <div className="billing-info">
                                   <label>Password</label>
-                                  <input type="password" />
+                                  <input
+                                    type="password"
+                                    name="password"
+                                    placeholder="Password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                  />
                                 </div>
                               </div>
                               <div className="col-lg-12 col-md-12">
                                 <div className="billing-info">
                                   <label>Password Confirm</label>
-                                  <input type="password" />
+                                  <input
+                                    type="password"
+                                    name="password"
+                                    placeholder="Password"
+                                    value={confirmPassword}
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
+                                  />
                                 </div>
                               </div>
                             </div>
                             <div className="billing-back-btn">
                               <div className="billing-btn">
-                                <button type="submit">Continue</button>
+                                <button type="submit" onClick={updatePassword}>
+                                  Continue
+                                </button>
                               </div>
                             </div>
                           </div>
@@ -176,10 +199,6 @@ const MyAccount = ({ location }) => {
       </Layout>
     </Fragment>
   );
-};
-
-MyAccount.propTypes = {
-  location: PropTypes.object
 };
 
 export default MyAccount;

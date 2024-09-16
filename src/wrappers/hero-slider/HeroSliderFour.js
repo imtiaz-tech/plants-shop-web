@@ -1,7 +1,7 @@
 import React from "react";
 import Swiper from "react-id-swiper";
 import heroSliderData from "../../data/hero-sliders/hero-slider-four.json";
-// import HeroSliderFourSingle from "../../components/hero-slider/HeroSliderFourSingle.js";
+import HeroSliderFourSingle from "../../components/hero-slider/HeroSliderFourSingle.js";
 
 const HeroSliderFour = () => {
   const params = {
@@ -29,24 +29,24 @@ const HeroSliderFour = () => {
     )
   };
 
-  // return (
-  //   <div className="slider-area">
-  //     <div className="slider-active nav-style-1">
-  //       <Swiper {...params}>
-  //         {heroSliderData &&
-  //           heroSliderData.map((single, key) => {
-  //             return (
-  //               <HeroSliderFourSingle
-  //                 data={single}
-  //                 key={key}
-  //                 sliderClass="swiper-slide"
-  //               />
-  //             );
-  //           })}
-  //       </Swiper>
-  //     </div>
-  //   </div>
-  // );
+  return (
+    <div className="slider-area">
+      <div className="slider-active nav-style-1">
+        <Swiper {...params}>
+          {heroSliderData &&
+            heroSliderData.map((single, key) => {
+              return (
+                <HeroSliderFourSingle
+                  data={single}
+                  key={key}
+                  sliderClass="swiper-slide"
+                />
+              );
+            })}
+        </Swiper>
+      </div>
+    </div>
+  );
 };
 
 export default HeroSliderFour;
