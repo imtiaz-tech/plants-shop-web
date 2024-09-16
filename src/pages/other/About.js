@@ -6,9 +6,9 @@ import Layout from "../../layout";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import SectionTitleWithText from "../../components/section-title/SectionTitleWithText";
 import BannerOne from "../../wrappers/banner/BannerOne";
-import TextGridOne from "../../wrappers/text-grid/TextGridOne";
+// import TextGridOne from "../../wrappers/text-grid/TextGridOne";
 import FunFactOne from "../../wrappers/fun-fact/FunFactOne";
-import TeamMemberOne from "../../wrappers/team-member/TeamMemberOne";
+// import TeamMemberOne from "../../wrappers/team-member/TeamMemberOne";
 import BrandLogoSliderOne from "../../wrappers/brand-logo/BrandLogoSliderOne";
 
 const About = ({ location }) => {
@@ -37,7 +37,7 @@ const About = ({ location }) => {
         <BannerOne spaceBottomClass="pb-70" />
 
         {/* text grid */}
-        <TextGridOne spaceBottomClass="pb-70" />
+        {/* <TextGridOne spaceBottomClass="pb-70" /> */}
 
         {/* fun fact */}
         <FunFactOne
@@ -47,7 +47,7 @@ const About = ({ location }) => {
         />
 
         {/* team member */}
-        <TeamMemberOne spaceTopClass="pt-95" spaceBottomClass="pb-70" />
+        {/* <TeamMemberOne spaceTopClass="pt-95" spaceBottomClass="pb-70" /> */}
 
         {/* brand logo slider */}
         <BrandLogoSliderOne spaceBottomClass="pb-70" />
