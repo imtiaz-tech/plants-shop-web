@@ -7,7 +7,7 @@ import Accordion from "react-bootstrap/Accordion";
 import Layout from "../../layout";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useDispatch } from "react-redux";
-import { changeUserPassword,changeUserDetails } from "../../redux/authUser";
+import { changeUserPassword,changeUserDetails,changeUserAddressDetails } from "../../redux/authUser";
 
 const MyAccount = () => {
   const dispatch = useDispatch();
@@ -19,6 +19,10 @@ const MyAccount = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [city, setCity] = useState("");
+  const [country, setCountry] = useState("");
+  const [state, setState] = useState("");
+  const [postcode, setPostCode] = useState("");
+  const [streetAddress, setStreetAddress] = useState("");
 
   const editUserInformation=()=>{
     const data={
@@ -34,6 +38,14 @@ const MyAccount = () => {
     };
     dispatch(changeUserPassword(data));
   };
+
+  const updateUserAddress=()=>{
+    const data={
+      country,state,
+      postcode,streetAddress
+    }
+    dispatch(changeUserAddressDetails(data))
+  }
 
   return (
     <Fragment>
@@ -190,32 +202,56 @@ const MyAccount = () => {
                       </Card.Header>
                       <Accordion.Collapse eventKey="2">
                         <Card.Body>
-                          <div className="myaccount-info-wrapper">
+                        <div className="myaccount-info-wrapper">
                             <div className="account-info-wrapper">
-                              <h4>Address Book Entries</h4>
+                              <h4>My Account Information</h4>
+                              <h5>Your Address Details</h5>
                             </div>
-                            <div className="entries-wrapper">
-                              <div className="row">
-                                <div className="col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
-                                  <div className="entries-info text-center">
-                                    <p>John Doe</p>
-                                    <p>Paul Park </p>
-                                    <p>Lorem ipsum dolor set amet</p>
-                                    <p>NYC</p>
-                                    <p>New York</p>
-                                  </div>
+                            <div className="row">
+                              <div className="col-lg-6 col-md-6">
+                                <div className="billing-info">
+                                  <label>Country</label>
+                                  <input type="text"
+                                  name="name"
+                                  placeholder="Country"
+                                  value={country}
+                                  onChange={(e) => setCountry(e.target.value)} />
                                 </div>
-                                <div className="col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
-                                  <div className="entries-edit-delete text-center">
-                                    <button className="edit">Edit</button>
-                                    <button>Delete</button>
-                                  </div>
+                              </div>
+                              <div className="col-lg-6 col-md-6">
+                                <div className="billing-info">
+                                  <label>State</label>
+                                  <input type="text"
+                                  name="lastname"
+                                  placeholder="State"
+                                  value={state}
+                                  onChange={(e) => setState(e.target.value)} />
+                                </div>
+                              </div>
+                              <div className="col-lg-12 col-md-12">
+                                <div className="billing-info">
+                                  <label>Postal Code</label>
+                                  <input type="email"
+                                  name="email"
+                                  placeholder="PostCode"
+                                  value={postcode}
+                                  onChange={(e) => setPostCode(e.target.value)} />
+                                </div>
+                              </div>
+                              <div className="col-lg-6 col-md-6">
+                                <div className="billing-info">
+                                  <label>Street Address</label>
+                                  <input type="text"
+                                  name="phoneNo"
+                                  placeholder="Street Address"
+                                  value={streetAddress}
+                                  onChange={(e) => setStreetAddress(e.target.value)} />
                                 </div>
                               </div>
                             </div>
                             <div className="billing-back-btn">
                               <div className="billing-btn">
-                                <button type="submit">Continue</button>
+                                <button type="submit" onClick={updateUserAddress}>Continue</button>
                               </div>
                             </div>
                           </div>
