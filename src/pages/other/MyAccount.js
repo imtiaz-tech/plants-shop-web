@@ -7,14 +7,26 @@ import Accordion from "react-bootstrap/Accordion";
 import Layout from "../../layout";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useDispatch } from "react-redux";
-import { changeUserPassword } from "../../redux/authUser";
+import { changeUserPassword,changeUserDetails } from "../../redux/authUser";
 
 const MyAccount = () => {
   const dispatch = useDispatch();
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [city, setCity] = useState("");
 
+  const editUserInformation=()=>{
+    const data={
+      name,lastName,
+      email,phone,city
+    }
+    dispatch(changeUserDetails(data))
+  } 
 
   const updatePassword = () => {
     const data = {
@@ -59,37 +71,57 @@ const MyAccount = () => {
                               <div className="col-lg-6 col-md-6">
                                 <div className="billing-info">
                                   <label>First Name</label>
-                                  <input type="text" />
+                                  <input type="text"
+                                  name="name"
+                                  placeholder="firstname"
+                                  value={name}
+                                  onChange={(e) => setName(e.target.value)} />
                                 </div>
                               </div>
                               <div className="col-lg-6 col-md-6">
                                 <div className="billing-info">
                                   <label>Last Name</label>
-                                  <input type="text" />
+                                  <input type="text"
+                                  name="lastname"
+                                  placeholder="lastname"
+                                  value={lastName}
+                                  onChange={(e) => setLastName(e.target.value)} />
                                 </div>
                               </div>
                               <div className="col-lg-12 col-md-12">
                                 <div className="billing-info">
                                   <label>Email Address</label>
-                                  <input type="email" />
+                                  <input type="email"
+                                  name="email"
+                                  placeholder="email"
+                                  value={email}
+                                  onChange={(e) => setEmail(e.target.value)} />
                                 </div>
                               </div>
                               <div className="col-lg-6 col-md-6">
                                 <div className="billing-info">
                                   <label>Telephone</label>
-                                  <input type="text" />
+                                  <input type="text"
+                                  name="phoneNo"
+                                  placeholder="PhoneNo"
+                                  value={phone}
+                                  onChange={(e) => setPhone(e.target.value)} />
                                 </div>
                               </div>
                               <div className="col-lg-6 col-md-6">
                                 <div className="billing-info">
-                                  <label>Fax</label>
-                                  <input type="text" />
+                                  <label>City</label>
+                                  <input type="text" 
+                                  name="city"
+                                  placeholder="city"
+                                  value={city}
+                                  onChange={(e) => setCity(e.target.value)} />
                                 </div>
                               </div>
                             </div>
                             <div className="billing-back-btn">
                               <div className="billing-btn">
-                                <button type="submit">Continue</button>
+                                <button type="submit" onClick={editUserInformation}>Continue</button>
                               </div>
                             </div>
                           </div>

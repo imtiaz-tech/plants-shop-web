@@ -47,6 +47,23 @@ export const changeUserPassword = createAsyncThunk(
   }
 );
 
+export const changeUserDetails = createAsyncThunk(
+  "auth/change-user-details",
+  async (updata, { getState, rejectWithValue }) => {
+    try {
+      const { token } = getState().auth;
+      const res = await axios.patch("/auth/change-user-details", updata, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return res.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -106,6 +123,17 @@ const authSlice = createSlice({
       state.user = action.payload.data;
     });
     builder.addCase(changeUserPassword.rejected, (state, action) => {
+      state.isloading = false;
+      state.error = action.payload;
+    });
+    builder.addCase(changeUserDetails.pending, (state) => {
+      state.isloading = true;
+    });
+    builder.addCase(changeUserDetails.fulfilled, (state, action) => {
+      state.isloading = false;
+      state.user = action.payload.data;
+    });
+    builder.addCase(changeUserDetails.rejected, (state, action) => {
       state.isloading = false;
       state.error = action.payload;
     });
