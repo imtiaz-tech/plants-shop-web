@@ -18,10 +18,11 @@ const Checkout = () => {
   const { addToast } = useToasts();
 
   const { isLoadingOrder } = useSelector((state) => state.products || {});
-  const { cart, token } = useSelector((state) => state.auth || {});
+  const { cart, token, user } = useSelector((state) => state.auth || {});
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLaststName] = useState("");
+  const [country, setCountry] = useState("");
   const [address, setAddress] = useState("");
   const [apartmentAddress, setApartmentAddress] = useState("");
   const [city, setCity] = useState("");
@@ -42,6 +43,31 @@ const Checkout = () => {
       addToast("Please login to continue!", { appearance: "warning", autoDismiss: true });
     }
   }, []);
+
+  useEffect(() => {
+    const { name } = user;
+    setFirstName(name);
+    const{lastName}=user;
+    setLaststName(lastName);
+    const{country}=user;
+    setCountry(country);
+    const{streetAddress}=user;
+    setAddress(streetAddress);
+    const{apartmentaddress}=user;
+    setApartmentAddress(apartmentaddress);
+    const{city}=user;
+    setCity(city);
+    const{state}=user;
+    setState(state);
+    const{postcode}=user;
+    setPostcode(postcode);
+    const{phone}=user;
+    setPhoneNumber(phone);
+    const{email}=user;
+    setEmail(email);
+
+
+  }, [user]);
 
   function validateEmail(emailField) {
     var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
@@ -68,6 +94,8 @@ const Checkout = () => {
       setErrorText("firstName is required");
     } else if (lastName === "") {
       setErrorText("lastName is required");
+    } else if (country === "") {
+      setErrorText("country is required");
     } else if (address === "") {
       setErrorText("address is required");
     } else if (apartmentAddress === "") {
@@ -97,6 +125,7 @@ const Checkout = () => {
         phoneNumber,
         email,
         notes,
+        country,
         cart: mapCart,
       };
       addToast("Add Order Successfully", { appearance: "success", autoDismiss: true });
@@ -153,10 +182,12 @@ const Checkout = () => {
                       <div className="col-lg-12">
                         <div className="billing-select mb-20">
                           <label>Country</label>
-                          <select>
-                            <option>Select a country</option>
-                            <option>Pakistan</option>
-                          </select>
+                          <input
+                            type="text"
+                            name="lastName"
+                            value={country}
+                            onChange={(e) => setCountry(e.target.value)}
+                          />
                         </div>
                       </div>
                       <div className="col-lg-12">
@@ -266,9 +297,7 @@ const Checkout = () => {
                       </div>
                       <div className="payment-method"></div>
                     </div>
-                    {errorText && (
-                            <p className="danger-text">{errorText}</p>
-                          )}
+                    {errorText && <p className="danger-text">{errorText}</p>}
                     <div className="place-order mt-25">
                       <button className="btn-hover" onClick={saveOrder}>
                         Place Order

@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState,useEffect } from "react";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import Card from "react-bootstrap/Card";
 import Accordion from "react-bootstrap/Accordion";
 import Layout from "../../layout";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { changeUserPassword,changeUserDetails,changeUserAddressDetails } from "../../redux/authUser";
 
 const MyAccount = () => {
@@ -23,6 +23,32 @@ const MyAccount = () => {
   const [state, setState] = useState("");
   const [postcode, setPostCode] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
+  const [apartmentAddress, setApartmentAddress] = useState("");
+
+  const {  user } = useSelector((state) => state.auth || {});
+  
+  useEffect(() => {
+    const { name } = user;
+    setName(name);
+    const{lastName}=user;
+    setLastName(lastName);
+    const{country}=user;
+    setCountry(country);
+    const{streetAddress}=user;
+    setStreetAddress(streetAddress);
+    const{apartmentaddress}=user;
+    setApartmentAddress(apartmentaddress);
+    const{city}=user;
+    setCity(city);
+    const{state}=user;
+    setState(state);
+    const{postcode}=user;
+    setPostCode(postcode);
+    const{phone}=user;
+    setPhone(phone);
+    const{email}=user;
+    setEmail(email);
+  }, [user]);
 
   const editUserInformation=()=>{
     const data={
@@ -42,7 +68,7 @@ const MyAccount = () => {
   const updateUserAddress=()=>{
     const data={
       country,state,
-      postcode,streetAddress
+      postcode,streetAddress,apartmentAddress
     }
     dispatch(changeUserAddressDetails(data))
   }
@@ -246,6 +272,16 @@ const MyAccount = () => {
                                   placeholder="Street Address"
                                   value={streetAddress}
                                   onChange={(e) => setStreetAddress(e.target.value)} />
+                                </div>
+                              </div>
+                              <div className="col-lg-6 col-md-6">
+                                <div className="billing-info">
+                                  <label>Apartment Address</label>
+                                  <input type="text"
+                                  name="apartmentAddress"
+                                  placeholder="apartment Address"
+                                  value={apartmentAddress}
+                                  onChange={(e) => setApartmentAddress(e.target.value)} />
                                 </div>
                               </div>
                             </div>
