@@ -51,10 +51,10 @@ const Register = () => {
      else {
       const userData = { name, password, email };
       dispatch(signup(userData)).then(({ payload }) => {
-        if (payload.success) {
+        if (payload?.success) {
           navigate("/login");
         } else {
-          setErrorText(payload.message)
+          setErrorText(payload?.message)
         }
       });
     }
