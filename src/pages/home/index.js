@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import MetaTags from "react-meta-tags";
 import Layout from "../../layout";
 import HeroSliderFour from "../../wrappers/hero-slider/HeroSliderFour";
@@ -8,6 +8,8 @@ import FeatureIconThree from "../../wrappers/feature-icon/FeatureIconThree";
 import Newsletter from "../../wrappers/newsletter/Newsletter";
 
 const HomePlants = () => {
+  
+
   return (
     <Fragment>
       <MetaTags>

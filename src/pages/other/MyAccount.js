@@ -7,7 +7,7 @@ import Accordion from "react-bootstrap/Accordion";
 import Layout from "../../layout";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useDispatch, useSelector } from "react-redux";
-import { changeUserPassword, changeUserDetails, changeUserAddressDetails } from "../../redux/authUser";
+import { changeUserPassword, changeUserDetails } from "../../redux/authUser";
 
 const MyAccount = () => {
   const dispatch = useDispatch();

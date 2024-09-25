@@ -44,30 +44,30 @@ const Checkout = () => {
     }
   }, []);
 
-  useEffect(() => {
-    const { name } = user;
-    setFirstName(name);
-    const{lastName}=user;
-    setLaststName(lastName);
-    const{country}=user.address;
-    setCountry(country);
-    const{streetAddress}=user.address;
-    setAddress(streetAddress);
-    const{apartmentaddress}=user.address;
-    setApartmentAddress(apartmentaddress);
-    const{city}=user.address;
-    setCity(city);
-    const{state}=user.address;
-    setState(state);
-    const{postcode}=user.address;
-    setPostcode(postcode);
-    const{phone}=user;
-    setPhoneNumber(phone);
-    const{email}=user;
-    setEmail(email);
+  // useEffect(() => {
+  //   const { name } = user;
+  //   setFirstName(name);
+  //   const{lastName}=user;
+  //   setLaststName(lastName);
+  //   const{country}=user.address;
+  //   setCountry(country);
+  //   const{streetAddress}=user.address;
+  //   setAddress(streetAddress);
+  //   const{apartmentaddress}=user.address;
+  //   setApartmentAddress(apartmentaddress);
+  //   const{city}=user.address;
+  //   setCity(city);
+  //   const{state}=user.address;
+  //   setState(state);
+  //   const{postcode}=user.address;
+  //   setPostcode(postcode);
+  //   const{phone}=user;
+  //   setPhoneNumber(phone);
+  //   const{email}=user;
+  //   setEmail(email);
 
 
-  }, [user]);
+  // }, [user]);
 
   function validateEmail(emailField) {
     var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;

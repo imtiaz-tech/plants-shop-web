@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import bannerData from "../../data/banner/banner-four.json";
 import BannerFourSingle from "../../components/banner/BannerFourSingle.js";
 
 const BannerFour = () => {
+    
   return (
     <div className="banner-area bg-gray-2">
       <div className="container">
