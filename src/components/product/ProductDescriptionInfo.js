@@ -33,11 +33,11 @@ const ProductDescriptionInfo = (props) => {
     <div className="product-details-content ml-70">
       <h2>{product?.name}</h2>
       <div className="product-details-price">
-        <span>{product.price} </span>
+        <span>PKR {product?.price} </span>
       </div>
       <div
         dangerouslySetInnerHTML={{
-          __html: product.textEditor,
+          __html: product?.textEditor,
         }}
         className="pro-details-list"
       ></div>
@@ -69,7 +69,7 @@ const ProductDescriptionInfo = (props) => {
             </button>
           </div>
           <div className="pro-details-cart btn-hover">
-            {product.quantity && product.quantity > 0 ? (
+            {product?.quantity && product?.quantity > 0 ? (
               <button onClick={() => AddToCart()} disabled={singleProduct} className={singleProduct ? "active not-allowed" : ""}>
                 {" "}
                 Add To Cart{" "}

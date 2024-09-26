@@ -26,6 +26,7 @@ const MyAccount = () => {
   const [apartmentAddress, setApartmentAddress] = useState("");
 
   const { user } = useSelector((state) => state.auth || {});
+  console.log("🚀 ~ MyAccount ~ user:", user)
 
   useEffect(() => {
     if (user) {
@@ -72,7 +73,7 @@ const MyAccount = () => {
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | My Account</title>
+        <title> My Account</title>
         <meta name="description" content="Compare page of flone react minimalist eCommerce template." />
       </MetaTags>
       <BreadcrumbsItem to={"/"}>Home</BreadcrumbsItem>

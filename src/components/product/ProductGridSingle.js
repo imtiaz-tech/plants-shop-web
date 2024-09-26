@@ -29,7 +29,6 @@ const ProductGridSingle = ({
     };
     dispatch(addToCart(data));
     addToast("Added To Cart", { appearance: "success", autoDismiss: true  });
-
   };
 
   return (
@@ -85,7 +84,7 @@ const ProductGridSingle = ({
         quantityCount={quantityCount}
         setQuantityCount={setQuantityCount}
         show={modalShow}
-        onHide={() => setModalShow(true)}
+        onHide={() => setModalShow(false)}
         product={product}
         setModalShow={setModalShow}
         addtoast={addToast}

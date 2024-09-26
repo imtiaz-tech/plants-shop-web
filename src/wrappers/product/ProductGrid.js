@@ -1,7 +1,5 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment } from "react";
 import ProductGridSingle from "../../components/product/ProductGridSingle";
-import { getProducts } from "../../helpers/product";
-import productsData from "../../data/products.json";
 import { useSelector } from "react-redux";
 
 const ProductGrid = ({

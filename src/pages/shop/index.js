@@ -49,7 +49,7 @@ const ShopGridStandard = () => {
     <Fragment>
       <OverlayLoading show={isLoadingProducts} />
       <MetaTags>
-        <title>Flone | Shop Page</title>
+        <title>Shop Page</title>
         <meta name="description" content="Shop page of flone react minimalist eCommerce template." />
       </MetaTags>
 

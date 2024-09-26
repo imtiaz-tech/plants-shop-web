@@ -13,7 +13,7 @@ const Product = () => {
   const dispatch = useDispatch();
   let params = useParams();
   const { id } = params;
-  const { product,ProductsByCategory, isLoadingSingleProduct } = useSelector((state) => state.products || {});
+  const { product, isLoadingSingleProduct } = useSelector((state) => state.products || {});
 
   useEffect(() => {
     dispatch(getSingleProduct(id)).then((res)=>{
@@ -31,7 +31,7 @@ const Product = () => {
   ) : (
     <Fragment>
       <MetaTags>
-        <title>Flone | Product Page</title>
+        <title>Product Page</title>
         <meta name="description" content="Product page of flone react minimalist eCommerce template." />
       </MetaTags>
 

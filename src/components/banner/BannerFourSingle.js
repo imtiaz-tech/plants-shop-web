@@ -16,7 +16,7 @@ const BannerFourSingle = ({ product, spaceBottomClass }) => {
         <div className="banner-content">
           <h3>{product?.name}</h3>
           <h4>
-            {product?.subtitle} <span>{product?.price}</span>
+            {product?.subtitle} <span>PKR {product?.price}</span>
           </h4>
           <Link to={"/shop"}>
             <i className="fa fa-long-arrow-right" />

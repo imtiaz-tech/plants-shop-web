@@ -76,7 +76,7 @@ const Register = () => {
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Login</title>
+        <title> Login</title>
         <meta
           name="description"
           content="Compare page of flone react minimalist eCommerce template."

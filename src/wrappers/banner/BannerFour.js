@@ -30,6 +30,7 @@ const BannerFour = () => {
               return (
                 <BannerFourSingle
                 product={product}
+                limit={3}
                   spaceBottomClass="mb-30"
                   key={key}
                 />

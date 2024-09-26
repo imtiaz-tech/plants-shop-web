@@ -4,7 +4,7 @@ import React from "react";
 const ProductImageFixed = ({ product }) => {
   return (
     <div className="product-large-image-wrapper">
-      {product.discount || product.new ? (
+      {product?.discount || product?.new ? (
         <div className="product-img-badges">
           {product.discount ? (
             <span className="pink">-{product.discount}%</span>
@@ -20,7 +20,7 @@ const ProductImageFixed = ({ product }) => {
       <div className="product-fixed-image">
         
           <img
-            src={ product.image}
+            src={ product?.image}
             alt=""
             className="img-fluid"
           />

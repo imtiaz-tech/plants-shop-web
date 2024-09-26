@@ -4,10 +4,11 @@ import { Modal } from "react-bootstrap";
 import { addToCart } from "../../redux/authUser";
 import { useDispatch,useSelector } from "react-redux";
 import { useToasts } from "react-toast-notifications";
+import { useNavigate } from "react-router-dom";
 
 function ProductModal(props) {
   const { product, setQuantityCount, quantityCount ,setModalShow} = props;
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { addToast } = useToasts();
   
@@ -24,6 +25,7 @@ function ProductModal(props) {
     addToast("Added To Cart", { appearance: "success", autoDismiss: true });
     dispatch(addToCart(data));
     setModalShow(false);
+    navigate("/shop")
   };
   const productCartQty = getProductCartQuantity(cart, product);
 

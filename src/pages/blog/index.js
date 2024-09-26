@@ -13,7 +13,7 @@ const BlogStandard = () => {
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Blog</title>
+        <title> Blog</title>
         <meta
           name="description"
           content="Blog of flone react minimalist eCommerce template."

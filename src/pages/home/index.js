@@ -6,14 +6,14 @@ import BannerFour from "../../wrappers/banner/BannerFour";
 // import TabProduct from "../../wrappers/product/TabProduct";
 import FeatureIconThree from "../../wrappers/feature-icon/FeatureIconThree";
 import Newsletter from "../../wrappers/newsletter/Newsletter";
-
+import TabProduct from "../../wrappers/product/TabProducts";
 const HomePlants = () => {
   
 
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Plants Home</title>
+        <title> Plants Home</title>
         <meta
           name="description"
           content="Plants home of flone react minimalist eCommerce template."
@@ -25,12 +25,12 @@ const HomePlants = () => {
         {/* banner */}
         <BannerFour />
         {/* tab product */}
-        {/* <TabProduct
+        <TabProduct
           spaceTopClass="pt-60"
           spaceBottomClass="pb-70"
           bgColorClass="bg-gray-2"
           category="plant"
-        /> */}
+        />
         {/* feature icon */}
         <FeatureIconThree
           bgColorClass="bg-gray-2"
