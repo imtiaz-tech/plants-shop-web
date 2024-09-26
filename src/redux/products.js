@@ -50,11 +50,22 @@ export const addOrder = createAsyncThunk("products/add-order", async (data, { ge
   }
 });
 
+export const getProductsByCategory = createAsyncThunk("product/get-products-by-category", async (data,{ rejectWithValue }) => {
+  try {
+    const res = await axios.get(`/unauthrized/get-products-by-category/${data}`)
+    return res.data;
+  } catch (error) {
+    return rejectWithValue(error.response.data);
+  }
+});
+
+
 
 const initialState = {
   order:[],
   product:{},
   products: [],
+  ProductsByCategory:[],
   productsCount: 0,
   categories: [],
   isLoading: false,
@@ -111,6 +122,17 @@ const productSlice = createSlice({
       state.order=action.payload.data;
     });
     builder.addCase(addOrder.rejected,(state,action) => {
+      state.isLoadingOrder=false;
+      state.error = action.payload;
+    })
+    builder.addCase(getProductsByCategory.pending,(state) =>{
+      state.isLoadingOrder=true;
+    });
+    builder.addCase(getProductsByCategory.fulfilled,(state,action) =>{
+      state.isLoadingOrder=false;
+      state.ProductsByCategory=action.payload;
+    });
+    builder.addCase(getProductsByCategory.rejected,(state,action) => {
       state.isLoadingOrder=false;
       state.error = action.payload;
     })

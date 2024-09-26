@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import ProductGridSingle from "../../components/product/ProductGridSingle";
 import { getProducts } from "../../helpers/product";
 import productsData from "../../data/products.json";
+import { useSelector } from "react-redux";
 
 const ProductGrid = ({
   currency,
@@ -14,16 +15,14 @@ const ProductGrid = ({
   sliderClassName,
   spaceBottomClass,
 }) => {
-  const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    const prods = getProducts(productsData, "plant", "new", 10);
-    setProducts(prods);
-  }, []);
+  const { ProductsByCategory } = useSelector((state) => state.products || {});
+  console.log("🚀 ~ ProductsByCategory:", ProductsByCategory)
+
 
   return (
     <Fragment>
-      {products?.map((product) => {
+      {ProductsByCategory?.data?.map((product) => {
         return (
           <ProductGridSingle
             sliderClassName={sliderClassName}

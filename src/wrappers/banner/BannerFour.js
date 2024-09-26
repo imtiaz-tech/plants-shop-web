@@ -26,10 +26,10 @@ const BannerFour = () => {
       <div className="container">
         <div className="row">
           {products &&
-            products?.map((single, key) => {
+            products?.map((product, key) => {
               return (
                 <BannerFourSingle
-                  data={single}
+                product={product}
                   spaceBottomClass="mb-30"
                   key={key}
                 />

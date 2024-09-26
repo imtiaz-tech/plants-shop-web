@@ -10,6 +10,7 @@ function ProductModal(props) {
 
   const dispatch = useDispatch();
   const { addToast } = useToasts();
+  
 
   const { cart } = useSelector((state) => state.auth || {});
   const singleProduct = cart?.find((item) => item.id == product._id);
