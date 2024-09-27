@@ -3,11 +3,29 @@ import MetaTags from "react-meta-tags";
 import Layout from "../../layout";
 import HeroSliderFour from "../../wrappers/hero-slider/HeroSliderFour";
 import BannerFour from "../../wrappers/banner/BannerFour";
-// import TabProduct from "../../wrappers/product/TabProduct";
 import FeatureIconThree from "../../wrappers/feature-icon/FeatureIconThree";
 import Newsletter from "../../wrappers/newsletter/Newsletter";
 import TabProduct from "../../wrappers/product/TabProducts";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../../redux/products.js";
+
 const HomePlants = () => {
+
+  const dispatch = useDispatch();
+  const { products } = useSelector((state) => state.products || {});
+
+  const getProductsByPage = () => {
+    const data = {
+      currentPage:1,
+      recordsPerPage:8,
+      searchProduct:"",
+      sortBy:"",
+    };
+    dispatch(getProducts(data));
+  };
+  useEffect(() => {
+    getProductsByPage();
+  }, []);
   
 
   return (
@@ -26,6 +44,7 @@ const HomePlants = () => {
         <BannerFour />
         {/* tab product */}
         <TabProduct
+        products={products}
           spaceTopClass="pt-60"
           spaceBottomClass="pb-70"
           bgColorClass="bg-gray-2"

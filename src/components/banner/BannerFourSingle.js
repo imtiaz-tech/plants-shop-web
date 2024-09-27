@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
 
-const BannerFourSingle = ({ product, spaceBottomClass }) => {
+const BannerFourSingle = ({ product,data, spaceBottomClass }) => {
   return (
     <div className="col-lg-4 col-md-4">
       <div
@@ -11,12 +11,12 @@ const BannerFourSingle = ({ product, spaceBottomClass }) => {
         }`}
       >
         <Link to={"/shop"}>
-          <img src={product?.image} alt="" />
+          <img src={data?.image} alt="" />
         </Link>
         <div className="banner-content">
-          <h3>{product?.name}</h3>
+          <h3>{data?.title}</h3>
           <h4>
-            {product?.subtitle} <span>PKR {product?.price}</span>
+            {data?.subtitle} <span>PKR {data?.price}</span>
           </h4>
           <Link to={"/shop"}>
             <i className="fa fa-long-arrow-right" />

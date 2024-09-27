@@ -20,7 +20,6 @@ const Product = () => {
       const { data } = res?.payload;
       if(data?.categoryId){
         dispatch(getProductsByCategory(data?.categoryId));
-
       }
     });
   }, [id]);
