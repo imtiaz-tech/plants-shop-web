@@ -9,14 +9,14 @@ const HeaderTwo = () => {
   const [scroll, setScroll] = useState(0);
   const [headerTop, setHeaderTop] = useState(0);
 
-  // useEffect(() => {
-  //   const header = document.querySelector(".sticky-bar");
-  //   setHeaderTop(header.offsetTop);
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, []);
+  useEffect(() => {
+    const header = document.querySelector(".sticky-bar");
+    setHeaderTop(header.offsetTop);
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const handleScroll = () => {
     setScroll(window.scrollY);
@@ -28,13 +28,6 @@ const HeaderTwo = () => {
         <div className="header-top-area d-none d-lg-block">
           <div className="row">
             <div className="col-lg-5 col-md-8 col-12">
-              {/* language currency changer */}
-              {/* <LanguageCurrencyChanger
-                currency={currency}
-                setCurrency={setCurrency}
-                currentLanguageCode={currentLanguageCode}
-                dispatch={dispatch}
-              /> */}
             </div>
             <div className="col-lg-2 d-none d-lg-block text-center">
               {/* header logo */}
@@ -44,7 +37,6 @@ const HeaderTwo = () => {
               />
             </div>
             <div className="col-lg-5 col-md-4 col-12">
-              {/* Icon group */}
               <IconGroup />
             </div>
           </div>
