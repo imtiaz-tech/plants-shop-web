@@ -3,7 +3,7 @@ import React from "react";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import SectionTitle from "../../components/section-title/SectionTitle";
-import ProductGrid1 from "./ProductGrid1";
+import ProductGridForHome from "./ProductGridForHome";
 const TabProduct = ({
   spaceTopClass,
   spaceBottomClass,
@@ -26,7 +26,7 @@ const TabProduct = ({
           </Nav>
           <Tab.Content>
               <div className="row">
-                <ProductGrid1
+                <ProductGridForHome
                 products={products}
                 //   limit={8}
                   spaceBottomClass="mb-25"

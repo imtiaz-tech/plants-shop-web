@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import ProductGridSingle1 from "../../components/product/ProductGridSingle1";
+import ProductGridSingleForHome from "../../components/product/ProductGridSingleForHome";
 import { useSelector } from "react-redux";
 
 const ProductGrid = ({
@@ -17,7 +17,7 @@ const ProductGrid = ({
     <Fragment>
       {products?.map((product) => {
         return (
-          <ProductGridSingle1
+          <ProductGridSingleForHome
             sliderClassName={sliderClassName}
             spaceBottomClass={spaceBottomClass}
             product={product}
