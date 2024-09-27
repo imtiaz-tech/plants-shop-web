@@ -7,6 +7,7 @@ const LayoutTwo = ({ children, footerBgClass }) => {
   return (
     <Fragment>
       <Header />
+      <p style={{ marginBottom: 150 }}/>
       {children}
       <FooterOne
         backgroundColorClass={footerBgClass ? footerBgClass : "bg-gray"}
