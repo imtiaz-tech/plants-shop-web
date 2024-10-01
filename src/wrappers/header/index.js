@@ -3,7 +3,6 @@ import Logo from "../../components/header/Logo";
 import IconGroup from "../../components/header/IconGroup";
 import NavMenu from "../../components/header/NavMenu";
 import MobileMenu from "../../components/header/MobileMenu";
-import LanguageCurrencyChanger from "../../components/header/sub-components/LanguageCurrencyChanger";
 
 const HeaderTwo = () => {
   const [scroll, setScroll] = useState(0);
