@@ -2,7 +2,7 @@ import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastProvider } from "react-toast-notifications";
 import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
-
+import "./app.css"
 // home pages
 const Home = lazy(() => import("./pages/home"));
 // shop pages

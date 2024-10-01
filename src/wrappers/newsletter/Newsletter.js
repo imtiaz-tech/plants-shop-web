@@ -17,7 +17,7 @@ const Newsletter = ({
       }`}
     >
       <div className="container">
-        <div className="row">
+        <div className="row center">
           <div className="col-xl-8 col-lg-8 ml-auto mr-auto">
             <div className="subscribe-style-2 text-center">
               <h2>Subscribe </h2>
