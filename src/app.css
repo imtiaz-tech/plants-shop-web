@@ -3,3 +3,6 @@
   align-items: center;
   justify-content: center;
 }
+.active-tab {
+  color: #a749ff;
+}

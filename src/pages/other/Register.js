@@ -89,7 +89,7 @@ const Register = () => {
         <Breadcrumb />
         <div className="login-register-area pt-100 pb-100">
           <div className="container">
-            <div className="row">
+            <div className="row center">
               <div className="col-lg-7 col-md-12 ml-auto mr-auto">
                 <div className="login-register-wrapper">
                   <div>
@@ -104,7 +104,7 @@ const Register = () => {
                       <Nav.Item>
                         <Nav.Link>
                           <Link to={"/register"}>
-                            <h4>Register</h4>
+                            <h4 className="active-tab">Register</h4>
                           </Link>
                         </Nav.Link>
                       </Nav.Item>
