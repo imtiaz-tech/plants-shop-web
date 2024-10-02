@@ -26,7 +26,6 @@ const MyAccount = () => {
   const [apartmentAddress, setApartmentAddress] = useState("");
 
   const { user } = useSelector((state) => state.auth || {});
-  console.log("🚀 ~ MyAccount ~ user:", user)
 
   useEffect(() => {
     if (user) {
@@ -84,7 +83,7 @@ const MyAccount = () => {
         <div className="myaccount-area pb-80 pt-100">
           <div className="container">
             <div className="row">
-              <div className="ml-auto mr-auto col-lg-9">
+              <div className="ml-auto mr-auto col-lg-12">
                 <div className="myaccount-wrapper">
                   <Accordion defaultActiveKey="0">
                     <Card className="single-my-account mb-20">
