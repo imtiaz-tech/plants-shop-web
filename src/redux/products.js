@@ -100,7 +100,7 @@ const productSlice = createSlice({
       state.productsCount = action.payload.count;
     });
     builder.addCase(getProducts.rejected, (state, action) => {
-      state.isLoading = false;
+      state.isLoadingProducts = false;
       state.error = action.payload;
     });
     builder.addCase(getSingleProduct.pending,(state)=>{
