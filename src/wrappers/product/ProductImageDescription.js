@@ -4,11 +4,12 @@ import ProductDescriptionInfo from "../../components/product/ProductDescriptionI
 import ProductImageFixed from "../../components/product/ProductImageFixed";
 
 const ProductImageDescription = (props) => {
+  //props pass from parent component
   const{product,spaceTopClass,
     spaceBottomClass,
     cartItems,
     }=props;
-
+     //useToasts used for show Toast when product add to cart
   const { addToast } = useToasts();
 
 
@@ -21,11 +22,14 @@ const ProductImageDescription = (props) => {
       <div className="container">
         <div className="row">
           <div className="col-lg-6 col-md-6">
-            <ProductImageFixed product={product}/>
+            <ProductImageFixed
+            //props pass to child component
+            product={product}/>
           </div>
           <div className="col-lg-6 col-md-6">
             {/* product description info */}
             <ProductDescriptionInfo
+            //props pass to child component
               product={product}
               cartItems={cartItems}
               addToast={addToast}

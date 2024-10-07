@@ -18,7 +18,7 @@ const ProductImageFixed = ({ product }) => {
       )}
 
       <div className="product-fixed-image">
-        
+        {/* get product image from product for showing single product */}
           <img
             src={ product?.image}
             alt=""

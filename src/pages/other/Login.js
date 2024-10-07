@@ -12,17 +12,20 @@ import { login } from "../../redux/authUser";
 import { useLocation } from "react-router-dom";
 
 const Register = () => {
+    //useNavigate hook provides a simple API for navigating between pages in your React application.
   const navigate = useNavigate();
+    //useDispatch() hook is used to dispatch actions to the Redux store
   const dispatch = useDispatch();
+    //useToasts used for show Toast when user login
   const { addToast } = useToasts();
 
   const { search } = useLocation();
   const query = new URLSearchParams(search);
-
+  //useState hook  used for setpassword,setemail,setErrorText
   const [password, setpassword] = useState("");
   const [email, setemail] = useState("");
   const [errortext, setErrorText] = useState("");
-
+  //function for validate email in email input field
   function validateEmail(emailField) {
     var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 
@@ -31,7 +34,8 @@ const Register = () => {
     }
     return true;
   }
-
+  // onLogin function called when user click login button it takes 2 parameters password,email and add validation 
+  //  on input fields if any field empty onRegister not called show error after register navigate to shop page
   const onLogin = () => {
     const isvalid = validateEmail(email);
     if (email === "") {
@@ -58,7 +62,7 @@ const Register = () => {
       });
     }
   };
-
+  // onInputChange function call when user setemail,setpassword
   const onInputChange = (e) => {
     setErrorText("");
     const name = e.target.name;
@@ -71,26 +75,34 @@ const Register = () => {
   };
 
   return (
+     //Fragments is used to group a list of children without adding extra nodes to the DOM.
     <Fragment>
+      {/* Handle document meta/head tags in isomorphic react with ease. */}
       <MetaTags>
+            {/* Title */}
         <title> Login</title>
         <meta name="description" content="Compare page of flone react minimalist eCommerce template." />
       </MetaTags>
+      {/* The React Breadcrumb is a graphical user interface that serves as a navigation header for your web application or site */}
       <BreadcrumbsItem to={"/"}>Home</BreadcrumbsItem>
       <BreadcrumbsItem to={"/login"}>Login</BreadcrumbsItem>
       <Layout headerTop="visible">
-        {/* breadcrumb */}
-        <Breadcrumb />
+      {/* The React Breadcrumb is a graphical user interface that serves as a navigation header for your web application or site */}
+      <Breadcrumb />
         <div className="login-register-area pt-100 pb-100">
           <div className="container">
             <div className="row center">
               <div className="col-lg-7 col-md-12 ml-auto mr-auto">
                 <div className="login-register-wrapper">
                   <div>
+                   {/* Nav Provides a list of various forms of navigation menus, which can be landscape and portrait layout. */}
                     <Nav variant="pills" className="login-register-tab-list">
+                      {/* The Nav.Item component is used for navigation purposes in a website. */}
                       <Nav.Item>
+                       {/* NavLink is a special kind of Link that knows whether or not it is "active", "pending", or "transitioning" */}
                         <Nav.Link>
                           <Link to={"/login"}>
+                            {/* Heading */}
                             <h4 className="active-tab">Login</h4>
                           </Link>
                         </Nav.Link>
@@ -98,6 +110,7 @@ const Register = () => {
                       <Nav.Item>
                         <Nav.Link>
                           <Link to={"/register"}>
+                           {/* Heading */}
                             <h4>Register</h4>
                           </Link>
                         </Nav.Link>
@@ -111,6 +124,7 @@ const Register = () => {
                             name="email"
                             placeholder="Email"
                             value={email}
+                            // onInputChange function called when user email
                             onChange={(e) => onInputChange(e)}
                           />
                           <input
@@ -118,6 +132,7 @@ const Register = () => {
                             name="password"
                             placeholder="Password"
                             value={password}
+                            // onInputChange function called when user email
                             onChange={(e) => onInputChange(e)}
                           />
                           <div className="button-box">
@@ -127,6 +142,7 @@ const Register = () => {
                               <Link to={"/"}>Forgot Password?</Link>
                             </div>
                             {errortext && <p className="danger-text">{errortext}</p>}
+                            {/* onLogin function called when user click on Login button */}
                             <button onClick={onLogin}>
                               <span>Login</span>
                             </button>

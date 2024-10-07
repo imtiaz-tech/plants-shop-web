@@ -5,6 +5,7 @@ import FooterOne from "../wrappers/footer/FooterOne";
 
 const LayoutTwo = ({ children, footerBgClass }) => {
   return (
+   //Fragments is used to group a list of children without adding extra nodes to the DOM.
     <Fragment>
       <Header />
       <p style={{ marginBottom: 150 }}/>

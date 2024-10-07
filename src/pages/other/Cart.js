@@ -5,18 +5,21 @@ import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { removeFromCart, updateCartQuantity,clearCart } from "../../redux/authUser";
+import { removeFromCart, updateCartQuantity, clearCart } from "../../redux/authUser";
 import Layout from "../../layout";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useNavigate } from "react-router-dom";
 
-
 const Cart = () => {
+  //useDispatch() hook is used to dispatch actions to the Redux store
   const dispatch = useDispatch();
-  const navigate=useNavigate()
+  //useNavigate hook provides a simple API for navigating between pages in your React application.
+  const navigate = useNavigate();
+  //useToasts used for show Toast when product add to cart
   const { addToast } = useToasts();
+  //useSelector hook is a feature provided by the React-Redux library that allows React components to access the state stored in a Redux store.
   const { cart } = useSelector((state) => state.auth || {});
-
+  //incrementQuantity function called when user click on quantity for increase product quantity
   const incrementQuantity = (cart) => {
     if (cart.quantityCount < cart.product.quantity) {
       dispatch(
@@ -25,10 +28,10 @@ const Cart = () => {
           quantity: cart.quantityCount + 1,
         })
       );
-      addToast("Added To Cart", { appearance: "success",autoDismiss: true });
+      addToast("Added To Cart", { appearance: "success", autoDismiss: true });
     }
   };
-
+  //decrementQuantity function called when user click on quantity for decrease product quantity
   const decrementQuantity = (cart) => {
     if (cart.quantityCount < cart.product.quantity) {
       dispatch(
@@ -37,32 +40,35 @@ const Cart = () => {
           quantity: cart.quantityCount - 1,
         })
       );
-      addToast("Product Decrement From Cart", { appearance: "success",autoDismiss: true });
+      addToast("Product Decrement From Cart", { appearance: "success", autoDismiss: true });
     }
   };
-
-  const clearAllCart=()=>{
-    addToast("cleared all cart", { appearance: "success",autoDismiss: true });
+  //clearAllCart function called when user click on clear all cart button on cart page
+  const clearAllCart = () => {
+    addToast("cleared all cart", { appearance: "success", autoDismiss: true });
     dispatch(clearCart());
-    navigate("/shop")
-  }
-
+    navigate("/shop");
+  };
+  //totalPrice function used for get total amount of products in cart
   const totalPrice = cart?.reduce((totalProducts, cartItem) => {
     return (totalProducts += cartItem.product?.price * cartItem.quantityCount);
   }, 0);
-
+  //productRemoveFromCart function used for remove product from cart
   const productRemoveFromCart = (_id) => {
-    addToast("Removed to cart", { appearance: "success",autoDismiss: true });
+    addToast("Removed to cart", { appearance: "success", autoDismiss: true });
     dispatch(removeFromCart(_id));
   };
 
   return (
+    //Fragments is used to group a list of children without adding extra nodes to the DOM.
     <Fragment>
+      {/* Handle document meta/head tags in isomorphic react with ease. */}
       <MetaTags>
+        {/* Title */}
         <title> Cart</title>
         <meta name="description" content="Cart page of flone react minimalist eCommerce template." />
       </MetaTags>
-
+      {/* The React Breadcrumb is a graphical user interface that serves as a navigation header for your web application or site */}
       <BreadcrumbsItem to={"/"}>Home</BreadcrumbsItem>
       <BreadcrumbsItem to={"/cart"}>Cart</BreadcrumbsItem>
 
@@ -72,6 +78,7 @@ const Cart = () => {
         <div className="cart-main-area pt-90 pb-100">
           <div className="container">
             {cart && cart.length >= 1 ? (
+              //Fragments is used to group a list of children without adding extra nodes to the DOM.
               <Fragment>
                 <h3 className="cart-page-title">Your cart items</h3>
                 <div className="row">
@@ -80,6 +87,7 @@ const Cart = () => {
                       <table>
                         <thead>
                           <tr>
+                            {/* Table Heading */}
                             <th>Image</th>
                             <th>Product Name</th>
                             <th>Unit Price</th>
@@ -89,23 +97,27 @@ const Cart = () => {
                           </tr>
                         </thead>
                         <tbody>
+                          {/* map method calls on array of cart for showing all products on cart  page*/}
                           {cart.map((cart) => {
                             return (
                               <tr key={cart.id}>
                                 <td className="product-thumbnail">
                                   <Link to={"/product"}>
+                                    {/* get product image from cart to shows on productmodal page */}
                                     <img className="img-fluid" src={cart.product?.image} alt="" />
                                   </Link>
                                 </td>
 
                                 <td className="product-name">
+                                  {/* get product name from cart to shows on productmodal page */}
                                   <Link>{cart.product?.name}</Link>
                                 </td>
-
+                                {/* get product name from cart to shows on productmodal page */}
                                 <td className="product-price-cart">{cart.product?.price}</td>
 
                                 <td className="product-quantity">
                                   <div className="cart-plus-minus">
+                                    {/* decrementQuantity function called when user click on quantity for decrease product quantity */}
                                     <button className="dec qtybutton" onClick={() => decrementQuantity(cart)}>
                                       -
                                     </button>
@@ -115,16 +127,16 @@ const Cart = () => {
                                       value={cart.quantityCount}
                                       readOnly
                                     />
+                                    {/* incrementQuantity function called when user click on quantity for increase product quantity */}
                                     <button className="inc qtybutton" onClick={() => incrementQuantity(cart)}>
                                       +
                                     </button>
                                   </div>
                                 </td>
-                                <td className="product-subtotal">
-                                  {cart.product?.price * cart.quantityCount}
-                                </td>
+                                <td className="product-subtotal">{cart.product?.price * cart.quantityCount}</td>
 
                                 <td className="product-remove">
+                                  {/* productRemoveFromCart function used for remove product from cart */}
                                   <button onClick={() => productRemoveFromCart(cart.product?._id)}>
                                     <i className="fa fa-times"></i>
                                   </button>
@@ -144,9 +156,8 @@ const Cart = () => {
                         <Link to={"/shop"}>Continue Shopping</Link>
                       </div>
                       <div className="cart-clear">
-                        <button onClick={() => clearAllCart()}>
-                          Clear Shopping Cart
-                        </button>
+                        {/* clearAllCart function called when user click on clear all cart button on cart page */}
+                        <button onClick={() => clearAllCart()}>Clear Shopping Cart</button>
                       </div>
                     </div>
                   </div>

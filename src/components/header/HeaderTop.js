@@ -1,11 +1,7 @@
 import React from "react";
-import LanguageCurrencyChanger from "./sub-components/LanguageCurrencyChanger";
 
 const HeaderTop = ({
   currency,
-  setCurrency,
-  currentLanguageCode,
-  dispatch,
   borderStyle,
 }) => {
   return (
@@ -14,12 +10,7 @@ const HeaderTop = ({
         borderStyle === "fluid-border" ? "border-bottom" : ""
       }`}
     >
-      {/* <LanguageCurrencyChanger
-        currency={currency}
-        setCurrency={setCurrency}
-        currentLanguageCode={currentLanguageCode}
-        dispatch={dispatch}
-      /> */}
+     
       <div className="header-offer">
         <p>
           Free delivery on order over{" "}

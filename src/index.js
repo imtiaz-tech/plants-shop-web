@@ -12,6 +12,7 @@ import { store } from "./redux/store.js";
 
 
 ReactDOM.render(
+      // Provider acts as a gateway or supervisor, granting access to the Redux store to any component that needs it 
   <Provider store={store}>
     <App />
   </Provider>,

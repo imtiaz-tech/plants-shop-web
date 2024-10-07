@@ -1,3 +1,5 @@
+//createAsyncThunk will generate three Redux action creators using createAction : pending , fulfilled , and rejected
+//createSlice simplifies the process of generating action creators and reducers.
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import axios from "../config/axios";
 
@@ -9,6 +11,7 @@ const initialState = {
   cart: [],
   initialValue: 0,
 };
+// signup api used for user sign-up in Register component
 
 export const signup = createAsyncThunk("auth/signup", async (signupData, { rejectWithValue }) => {
   try {
@@ -19,7 +22,7 @@ export const signup = createAsyncThunk("auth/signup", async (signupData, { rejec
     return rejectWithValue(error.response.data);
   }
 });
-
+// signin api used for user sign-in in login component
 export const login = createAsyncThunk("auth/login", async (loginData, { rejectWithValue }) => {
   try {
     const res = await axios.post("/auth/signin", loginData);
@@ -29,7 +32,7 @@ export const login = createAsyncThunk("auth/login", async (loginData, { rejectWi
     return rejectWithValue(error.response.data);
   }
 });
-
+// changeUserPassword api used for change user password in MyAccount component
 export const changeUserPassword = createAsyncThunk(
   "auth/change-user-password",
   async (updata, { getState, rejectWithValue }) => {
@@ -46,7 +49,7 @@ export const changeUserPassword = createAsyncThunk(
     }
   }
 );
-
+// changeUserDetails api used for change user details in MyAccount component
 export const changeUserDetails = createAsyncThunk(
   "auth/change-user-details",
   async (data, { getState, rejectWithValue }) => {
@@ -70,20 +73,25 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+      //logout used for user logout in IconGroup component
     logout: (state, action) => {
       state.user = null;
       state.token = null;
     },
+    //addTOcart used for product add to cart in ProductModal,ProductDescriptionInfo,ProductGridListSingle,ProductGridSingle component
     addToCart(state, action) {
       state.cart = [...state.cart, action.payload];
     },
+    //clearCart used for clear cart in cart,checkout component
     clearCart(state, action) {
       state.cart = [];
     },
+    //removeFromCart used for clear cart in cart,menuCart componet
     removeFromCart(state, action) {
       const productId = action.payload;
       state.cart = state.cart.filter((product) => product.id !== productId);
     },
+    //updateCartQuantity used for increase cart quantity in cart component
     updateCartQuantity(state, action) {
       const { productId, quantity } = action.payload;
       const cartItem = state.cart.find((item) => item.product._id === productId);
@@ -131,6 +139,7 @@ const authSlice = createSlice({
     builder.addCase(changeUserDetails.pending, (state) => {
       state.isloading = true;
     });
+    //state.user used in MyAccount.js component for update user details and password
     builder.addCase(changeUserDetails.fulfilled, (state, action) => {
       state.isloading = false;
       state.user = action.payload.data;
