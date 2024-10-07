@@ -8,10 +8,17 @@ import Layout from "../../layout";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useDispatch, useSelector } from "react-redux";
 import { changeUserPassword, changeUserDetails } from "../../redux/authUser";
+import OverlayLoading from "../../components/loading/overlayLoading";
+import { useNavigate } from "react-router-dom";
+import { useToasts } from "react-toast-notifications";
+
 
 const MyAccount = () => {
+  const navigate = useNavigate();
   //useDispatch() hook is used to dispatch actions to the Redux store
   const dispatch = useDispatch();
+  //useToasts used for show Toast when product add to cart
+  const { addToast } = useToasts();
    //useState hook  used for setPassword,setConfirmPassword,setName,setLastName,setEmail,setPhone,setPhone,setCity,setCountry,setState,setPostCode,setStreetAddress,setApartmentAddress
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -26,7 +33,8 @@ const MyAccount = () => {
   const [streetAddress, setStreetAddress] = useState("");
   const [apartmentAddress, setApartmentAddress] = useState("");
   //useSelector hook is a feature provided by the React-Redux library that allows React components to access the state stored in a Redux store.
-  const { user } = useSelector((state) => state.auth || {});
+  const { user,isUserDetailLoading } = useSelector((state) => state.auth || {});
+  console.log("🚀 ~ MyAccount ~ user:", user)
 //useEffect call if user exist and fill data in input fields for edit user account information
   useEffect(() => {
     if (user) {
@@ -61,19 +69,26 @@ const MyAccount = () => {
       streetAddress,
       apartmentAddress,
     };
-    dispatch(changeUserDetails(data));
+    dispatch(changeUserDetails(data)).then(() => {
+      addToast("Your Details Have been Changed", { appearance: "success", autoDismiss: true });
+      navigate("/shop");
+    });
   };
   //updatePassword function called when user update his password and click on submit button it gets 1 parameters password
   const updatePassword = () => {
     const data = {
       password,
     };
-    dispatch(changeUserPassword(data));
+    dispatch(changeUserPassword(data)).then(() => {
+      addToast("Your Password Have been Changed", { appearance: "success", autoDismiss: true });
+      navigate("/shop");
+    });;
   };
 
   return (
    //Fragments is used to group a list of children without adding extra nodes to the DOM.
     <Fragment>
+      <OverlayLoading show={isUserDetailLoading} />
     {/* Handle document meta/head tags in isomorphic react with ease. */}
       <MetaTags>
       {/* Title */}

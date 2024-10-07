@@ -7,6 +7,7 @@ const initialState = {
   user: {},
   token: "",
   isloading: false,
+  isUserDetailLoading:false,
   error: null,
   cart: [],
   initialValue: 0,
@@ -141,7 +142,7 @@ const authSlice = createSlice({
     });
     //state.user used in MyAccount.js component for update user details and password
     builder.addCase(changeUserDetails.fulfilled, (state, action) => {
-      state.isloading = false;
+      state.isUserDetailLoading = false;
       state.user = action.payload.data;
     });
     builder.addCase(changeUserDetails.rejected, (state, action) => {

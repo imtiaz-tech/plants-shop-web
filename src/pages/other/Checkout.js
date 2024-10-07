@@ -20,6 +20,7 @@ const Checkout = () => {
   //useSelector hook is a feature provided by the React-Redux library that allows React components to access the state stored in a Redux store.
   const { isLoadingOrder } = useSelector((state) => state.products || {});
   const { cart, token, user } = useSelector((state) => state.auth || {});
+  console.log("🚀 ~ Checkout ~ user:", user)
   //useState hook  used for setFirstName,setLaststName,setCountry,setAddress,setApartmentAddress,setCity,setState,setPostcode,setPhoneNumber,setEmail,setNotes,setErrorText
   const [firstName, setFirstName] = useState("");
   const [lastName, setLaststName] = useState("");
