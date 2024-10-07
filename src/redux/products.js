@@ -85,7 +85,7 @@ const productSlice = createSlice({
     builder.addCase(getCategories.pending, (state) => {
       state.isLoading = true;
     });
-        //state.categories used in ShopCategories component for show categories in list;
+    //state.categories used in ShopCategories component for show categories in list;
     builder.addCase(getCategories.fulfilled, (state, action) => {
       state.isLoading = false;
       state.categories = action.payload.data;

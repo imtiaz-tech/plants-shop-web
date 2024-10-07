@@ -130,7 +130,7 @@ const authSlice = createSlice({
     });
     builder.addCase(changeUserPassword.fulfilled, (state, action) => {
       state.isloading = false;
-      state.user = action.payload.data;
+      // state.user = action.payload.data;
     });
     builder.addCase(changeUserPassword.rejected, (state, action) => {
       state.isloading = false;

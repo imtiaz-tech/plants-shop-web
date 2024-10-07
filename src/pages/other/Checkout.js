@@ -86,7 +86,6 @@ const Checkout = () => {
   // saveOrder function called when user click place order button it takes 12 parameters firstName,lastName,address,apartmentAddress,city,state,postCode,phoneNumber,email,notes,cart,country and add validation
   const saveOrder = () => {
     const isvalid = validateEmail(email);
-    {/* map method calls on array of cart for showing all products on checkout  page*/}
     const mapCart = cart.map((product) => ({
       productId: product.id,
       quantity: product.quantityCount,

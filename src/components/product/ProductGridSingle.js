@@ -12,15 +12,17 @@ const ProductGridSingle = ({
   sliderClassName,
   spaceBottomClass,
 }) => {
+  //useDispatch() hook is used to dispatch actions to the Redux store
   const dispatch = useDispatch();
+  //usestate used for setmodal,setQuantityCount show false
   const [modalShow, setModalShow] = useState(false);
-  const { addToast } = useToasts();
   const [quantityCount, setQuantityCount] = useState(1);
-
+ //useToasts used for show Toast when product add to cart
+  const { addToast } = useToasts();
+  //useSelector hook is a feature provided by the React-Redux library that allows React components to access the state stored in a Redux store.
   const { cart } = useSelector((state) => state.auth || {});
   const singleProduct = cart?.find((item) => item.id == product._id);
-
-
+  //AddToCart function called when user clicked on Add to cart button on product image it requires 3 parameters product,quantityCount,id;
   const AddToCart = () => {
     const data = {
       product,
@@ -32,6 +34,7 @@ const ProductGridSingle = ({
   };
 
   return (
+    //Fragments is used to group a list of children without adding extra nodes to the DOM.
     <Fragment>
       <div className={`col-xl-3 col-md-6 col-lg-4 col-sm-6 ${sliderClassName ? sliderClassName : ""}`}>
         <div className={`product-wrap ${spaceBottomClass ? spaceBottomClass : ""}`}>
@@ -49,6 +52,7 @@ const ProductGridSingle = ({
                 ) : product?.variation && product?.variation.length >= 1 ? (
                   <Link to={"/product/" + product._id}>Select Option</Link>
                 ) : product.quantity && product.quantity > 0 ? (
+                  // onClick function called when user clicked on add to cart on product image
                   <button
                   onClick={() => AddToCart()} disabled={singleProduct} className={singleProduct ? "active not-allowed" : ""}
                   >
@@ -63,6 +67,7 @@ const ProductGridSingle = ({
                 )}
               </div>
               <div className="pro-same-action pro-quickview">
+                {/* onClick function called when user clicked on quickview on product image */}
                 <button onClick={() => setModalShow(true)} title="Quick View">
                   <i className="pe-7s-look" />
                 </button>
@@ -71,9 +76,11 @@ const ProductGridSingle = ({
           </div>
           <div className="product-content text-center">
             <h3>
+              {/* get product name from product to shows on product page */}
               <Link to={"/product/" + product._id}>{product.name}</Link>
             </h3>
             <div className="product-price">
+             {/* get product price from product to shows on product page */}
                 <span>PKR {product.price} </span>    
             </div>
           </div>

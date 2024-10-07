@@ -10,32 +10,32 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../redux/products.js";
 
 const HomePlants = () => {
-
+  //useDispatch() hook is used to dispatch actions to the Redux store
   const dispatch = useDispatch();
+  //useSelector hook is a feature provided by the React-Redux library that allows React components to access the state stored in a Redux store.
   const { products } = useSelector((state) => state.products || {});
 
   const getProductsByPage = () => {
     const data = {
-      currentPage:1,
-      recordsPerPage:8,
-      searchProduct:"",
-      sortBy:"",
+      currentPage: 1,
+      recordsPerPage: 8,
+      searchProduct: "",
+      sortBy: "",
     };
     dispatch(getProducts(data));
   };
+  //useeffect call when page render first time or refresh page
   useEffect(() => {
     getProductsByPage();
   }, []);
-  
 
   return (
+    //Fragments is used to group a list of children without adding extra nodes to the DOM.
     <Fragment>
+      {/* Handle document meta/head tags in isomorphic react with ease. */}
       <MetaTags>
         <title> Plants Home</title>
-        <meta
-          name="description"
-          content="Plants home of flone react minimalist eCommerce template."
-        />
+        <meta name="description" content="Plants home of flone react minimalist eCommerce template." />
       </MetaTags>
       <Layout footerBgClass="bg-gray-4">
         {/* hero slider */}
@@ -44,25 +44,16 @@ const HomePlants = () => {
         <BannerFour />
         {/* tab product */}
         <TabProduct
-        products={products}
+          products={products}
           spaceTopClass="pt-60"
           spaceBottomClass="pb-70"
           bgColorClass="bg-gray-2"
           category="plant"
         />
         {/* feature icon */}
-        <FeatureIconThree
-          bgColorClass="bg-gray-2"
-          spaceBottomClass="pb-70"
-          featureShapeClass="support-shape-2"
-        />
+        <FeatureIconThree bgColorClass="bg-gray-2" spaceBottomClass="pb-70" featureShapeClass="support-shape-2" />
         {/* newsletter */}
-        <Newsletter
-          bgColorClass="bg-gray-2"
-          spaceBottomClass="pb-100"
-          spaceLeftClass="pl-30"
-          spaceRightClass="pr-30"
-        />
+        <Newsletter bgColorClass="bg-gray-2" spaceBottomClass="pb-100" spaceLeftClass="pl-30" spaceRightClass="pr-30" />
       </Layout>
     </Fragment>
   );

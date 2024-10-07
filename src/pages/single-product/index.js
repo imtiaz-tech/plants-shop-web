@@ -10,14 +10,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSingleProduct, getProductsByCategory } from "../../redux/products";
 import LoadingOverlay from "../../components/loading/overlayLoading";
 const Product = () => {
-       //useDispatch() hook is used to dispatch actions to the Redux store
+  //useDispatch() hook is used to dispatch actions to the Redux store
   const dispatch = useDispatch();
-     // useParams hooks of React-Router that returns a dynamic parameter of the URL that the user is currently on
+  // useParams hooks of React-Router that returns a dynamic parameter of the URL that the user is currently on
   let params = useParams();
   const { id } = params;
-      //useSelector hook is a feature provided by the React-Redux library that allows React components to access the state stored in a Redux store.
+  //useSelector hook is a feature provided by the React-Redux library that allows React components to access the state stored in a Redux store.
   const { product, isLoadingSingleProduct } = useSelector((state) => state.products || {});
-   //useEffect  call when user click on single product image then product get by related category
+  //useEffect  call when user click on single product image then product get by related category
   useEffect(() => {
     dispatch(getSingleProduct(id)).then((res)=>{
       const { data } = res?.payload;
