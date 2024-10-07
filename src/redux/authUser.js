@@ -138,7 +138,7 @@ const authSlice = createSlice({
       state.error = action.payload;
     });
     builder.addCase(changeUserDetails.pending, (state) => {
-      state.isloading = true;
+      state.isUserDetailLoading = true;
     });
     //state.user used in MyAccount.js component for update user details and password
     builder.addCase(changeUserDetails.fulfilled, (state, action) => {
@@ -146,7 +146,7 @@ const authSlice = createSlice({
       state.user = action.payload.data;
     });
     builder.addCase(changeUserDetails.rejected, (state, action) => {
-      state.isloading = false;
+      state.isUserDetailLoading = false;
       state.error = action.payload;
     });
   },

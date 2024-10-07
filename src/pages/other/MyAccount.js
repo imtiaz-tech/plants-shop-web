@@ -70,7 +70,7 @@ const MyAccount = () => {
       apartmentAddress,
     };
     dispatch(changeUserDetails(data)).then(() => {
-      addToast("Your Details Have been Changed", { appearance: "success", autoDismiss: true });
+      addToast("Your account information have been edited", { appearance: "success", autoDismiss: true });
       navigate("/shop");
     });
   };
@@ -85,10 +85,11 @@ const MyAccount = () => {
     });;
   };
 
-  return (
+  return isUserDetailLoading ? (
+    <OverlayLoading/>
+  ):  (
    //Fragments is used to group a list of children without adding extra nodes to the DOM.
     <Fragment>
-      <OverlayLoading show={isUserDetailLoading} />
     {/* Handle document meta/head tags in isomorphic react with ease. */}
       <MetaTags>
       {/* Title */}
