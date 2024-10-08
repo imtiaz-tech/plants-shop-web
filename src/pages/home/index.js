@@ -34,7 +34,7 @@ const HomePlants = () => {
     <Fragment>
       {/* Handle document meta/head tags in isomorphic react with ease. */}
       <MetaTags>
-        <title> Plants Home</title>
+        <title> Decor Plant. Home</title>
         <meta name="description" content="Plants home of flone react minimalist eCommerce template." />
       </MetaTags>
       <Layout footerBgClass="bg-gray-4">
