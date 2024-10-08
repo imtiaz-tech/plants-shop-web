@@ -11,7 +11,7 @@ const Contact = ({ location }) => {
   return (
     <Fragment>
       <MetaTags>
-        <title> Contact</title>
+        <title>Decor Plant.Contact</title>
         <meta
           name="description"
           content="Contact of flone react minimalist eCommerce template."

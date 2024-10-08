@@ -54,7 +54,7 @@ const ShopGridStandard = () => {
        {/* Handle document meta/head tags in isomorphic react with ease. */}
       <MetaTags>
       {/* title */}
-        <title>Shop Page</title>
+        <title>Decor Plant.Shop </title>
         <meta name="description" content="Shop page of flone react minimalist eCommerce template." />
       </MetaTags>
       {/* The React Breadcrumb is a graphical user interface that serves as a navigation header for your web application or site */}
